@@ -8,6 +8,5 @@ DATASET_VERSION: 2
 DATASET_TYPE: windows
 
 DATASET_LOCATION_LOCAL: /home/freeze/GIT/onemanstreasure/datasets/windows/Fenstermodel neu.v1i.yolov8
-
 MODEL: /home/freeze/GIT/onemanstreasure/models/windows/2025_07_03_03_model/weights/best.pt
 EVALUATION_DATASET: /home/freeze/GIT/onemanstreasure/evaluation/room312_and_leuthener-2
