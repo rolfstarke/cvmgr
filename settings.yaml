@@ -5,8 +5,27 @@ ROBOFLOW_API_KEY: AgfWlgODe2lXi5Nh5VTu
 ROBOFLOW_WORKSPACE: made-srcnb
 ROBOFLOW_PROJECT: room312_and_leuthener
 DATASET_VERSION: 2
-DATASET_TYPE: windows
+DATASET_TYPE: mohsen_furniture
 
-DATASET_LOCATION_LOCAL: /home/freeze/GIT/onemanstreasure/datasets/windows/Fenstermodel neu.v1i.yolov8
-MODEL: /home/freeze/GIT/onemanstreasure/models/windows/2025_07_03_03_model/weights/best.pt
-EVALUATION_DATASET: /home/freeze/GIT/onemanstreasure/evaluation/room312_and_leuthener-2
+
+
+
+DATASET_LOCATIONS:
+  - /home/freeze/GIT/onemanstreasure/datasets/mohsen_furniture/v1/data.yaml
+  - /home/freeze/GIT/onemanstreasure/datasets/mohsen_furniture/v2/data.yaml
+
+TRAINING_CONFIGURATIONS:
+  - epochs: 10
+    img_size: 640
+    # time: 3 # Time in hours 
+    # patience: 15 # number of epochs with no improvement before stopping
+    # batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  - epochs: 20
+    img_size: 640
+    # time: 3 # Time in hours 
+    # patience: 15 # number of epochs with no improvement before stopping
+    # batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  
+
+MODEL: 
+EVALUATION_DATASET: 
