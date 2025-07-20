@@ -20,6 +20,8 @@ label-studio start
 ```
 
 http://localhost:8080/user/login/
+r-level2@posteo.de
+6dqAS%J~vF,y3GA
 
 
 # cvat

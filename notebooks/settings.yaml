@@ -1,0 +1,27 @@
+
+
+
+DATASET_LOCATIONS:
+  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/multiclass/ebi-fused-3/data.yaml
+
+TRAINING_CONFIGURATIONS:
+  - # epochs: 10
+    img_size: 640
+    time: 2 # Time in hours 
+    patience: 50 # number of epochs with no improvement before stopping
+    # batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  # - epochs: 20
+  #   img_size: 640
+  #   time: 3 # Time in hours 
+  #   patience: 15 # number of epochs with no improvement before stopping
+  #   batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  
+
+MODEL: 
+EVALUATION_DATASET: 
+
+#ebi full model
+
+DATASET_TYPE: multiclass
+MODEL_PARENT_DIR: /mnt/EBI-SHARE/06_Data/labelstudio/models
+
