@@ -2,15 +2,18 @@
 
 
 DATASET_LOCATIONS:
-  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/multiclass/ebi-fused-4/data.yaml
+#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/multiclass/ebi-fused-4/data.yaml
+#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/beer/bier_ki-1-yolov8/data.yaml
+#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/rabbits/kaninchen-2-yolov8/data.yaml
+  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/test/dataset.yaml
 
 TRAINING_CONFIGURATIONS:
   - # epochs: 10
     img_size: 640
     time: 7 # Time in hours 
-    patience: 50 # number of epochs with no improvement before stopping
+    patience: 40 # number of epochs with no improvement before stopping
     batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
-  # - epochs: 20
+#    epochs: 1
   #   img_size: 640
   #   time: 3 # Time in hours 
   #   patience: 15 # number of epochs with no improvement before stopping
@@ -22,6 +25,9 @@ EVALUATION_DATASET:
 
 #ebi full model
 
-DATASET_TYPE: multiclass
+#DATASET_TYPE: multiclass
+#DATASET_TYPE: beer
+#DATASET_TYPE: rabbits
+DATASET_TYPE: test
 MODEL_PARENT_DIR: /mnt/EBI-SHARE/06_Data/labelstudio/models
 
