@@ -37,9 +37,9 @@ models:
   doors:
     Door: 0.6
   windows:
-    window: 0.5
+    window: 0.6
   lights:
-    light: 0.5
+    light: 0.6
   open-images-v7:
     classes:
 
