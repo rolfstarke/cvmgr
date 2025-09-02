@@ -6,12 +6,12 @@ DATASET_LOCATIONS:
 #  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/beer/bier_ki-1-yolov8/data.yaml
 #  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/rabbits/kaninchen-2-yolov8/data.yaml
 #  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/test/dataset.yaml
-- /mnt/EBI-SHARE/06_Data/labelstudio/datasets/multiclass/ebi-rundgang-fused-qooqx-1-yolov8/data.yaml
+- /home/rolf/GIT/onemanstreasure/datasets/multiclass/der_merger-57422/dataset.yaml
 
 TRAINING_CONFIGURATIONS:
   - # epochs: 10
     img_size: 640
-    time: 2 # Time in hours 
+    time: 9 # Time in hours 
     patience: 100 # number of epochs with no improvement before stopping
     batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
 #    epochs: 1
@@ -30,7 +30,7 @@ EVALUATION_DATASET:
 #DATASET_TYPE: beer
 #DATASET_TYPE: rabbits
 DATASET_TYPE: multiclass
-MODEL_PARENT_DIR: /mnt/EBI-SHARE/06_Data/labelstudio/models
+MODEL_PARENT_DIR: /home/rolf/GIT/onemanstreasure/models
 
 
 models:

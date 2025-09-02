@@ -23,4 +23,6 @@ download chrome
 
 conda env create -f environment.yml
 conda install ipykernel
+conda activate onemanstreasure
 python -m ipykernel install --user --name onemanstreasure --display-name "Python (onemanstreasure)"
+restart vscode
