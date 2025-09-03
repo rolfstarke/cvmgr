@@ -44,4 +44,6 @@
 ehthumbs.db
 Thumbs.db
 
-notebooks/yolo11x.pt
+notebooks/*.pt
+notebooks/*.onnx
+notebooks/*.pth
