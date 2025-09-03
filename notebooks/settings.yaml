@@ -9,10 +9,10 @@ training_datasets:
   name: "open-image-v7-yolov5"
 
 training_configurations:
-  - epochs: 1
+  - # epochs: 1
     imgsz: 640
     # time: 9 # Time in hours 
-    patience: 60 # number of epochs with no improvement before stopping
+    patience: 40 # number of epochs with no improvement before stopping
     batch: 0.9 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
 #    epochs: 1
   #   img_size: 640
