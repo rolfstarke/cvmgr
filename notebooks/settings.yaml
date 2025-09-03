@@ -1,17 +1,17 @@
 
 
 
-DATASET_LOCATIONS:
-#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/multiclass/ebi-fused-4/data.yaml
-#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/beer/bier_ki-1-yolov8/data.yaml
-#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/rabbits/kaninchen-2-yolov8/data.yaml
-#  - /mnt/EBI-SHARE/06_Data/labelstudio/datasets/test/dataset.yaml
-- /home/rolf/GIT/onemanstreasure/datasets/multiclass/der_merger-57422/dataset.yaml
+training_datasets:
 
-TRAINING_CONFIGURATIONS:
-  - # epochs: 10
+- type: "multiclass"
+  name: "der_merger-400"
+- type: "multiclass"
+  name: "der_merger-401"
+
+training_configurations:
+  - epochs: 1
     img_size: 640
-    time: 9 # Time in hours 
+    # time: 9 # Time in hours 
     patience: 100 # number of epochs with no improvement before stopping
     batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
 #    epochs: 1
@@ -21,16 +21,6 @@ TRAINING_CONFIGURATIONS:
   #   batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
   
 
-MODEL: 
-EVALUATION_DATASET: 
-
-#ebi full model
-
-#DATASET_TYPE: multiclass
-#DATASET_TYPE: beer
-#DATASET_TYPE: rabbits
-DATASET_TYPE: multiclass
-MODEL_PARENT_DIR: /home/rolf/GIT/onemanstreasure/models
 
 
 models:
@@ -42,9 +32,6 @@ models:
     light: 0.6
   open-images-v7:
     classes:
-
-
-
 
 
 roboflow_datasets:
