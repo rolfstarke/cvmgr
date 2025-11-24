@@ -1,4 +1,4 @@
-name: onemanstreasure
+name: cvmgr
 dependencies:
   - python=3.10
   - ipykernel
@@ -11,6 +11,6 @@ dependencies:
       - ipywidgets
       - opencv-python
       - supervision
-variables:
-  LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED: true
-  LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT: /mnt/EBI-SHARE/06_Data/labelstudio
+#variables:
+#  LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED: true
+#  LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT: /mnt/EBI-SHARE/06_Data/labelstudio

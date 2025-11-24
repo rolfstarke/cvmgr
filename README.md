@@ -1,11 +1,10 @@
 # onemanstreasure
-a repo for training computer vision models in jupyter
+a repo for training computer vision models and merging datasets
 
 ```
 bash git clone https://github.com/rolfstarke/onemanstreasure.git
 ```
 
-make sure the dataset folder for label-studio is set correctly as env variable in the environment.yml
 conda env create -f environment.yml
 conda activate onemanstreasure
 # label-studio
