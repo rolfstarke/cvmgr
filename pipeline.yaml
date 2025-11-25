@@ -1,0 +1,4 @@
+
+# those must match the name in datasets.yaml
+datasets_to_download:
+ - oi_v7_custom_54

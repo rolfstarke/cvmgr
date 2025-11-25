@@ -7,6 +7,21 @@ bash git clone https://github.com/rolfstarke/onemanstreasure.git
 
 conda env create -f environment.yml
 conda activate onemanstreasure
+
+# fiftyone cli
+
+List all FiftyOne datasets
+```
+fiftyone datasets list
+```
+```
+fiftyone datasets delete <dataset_name>
+```
+
+
+
+
+
 # label-studio
 
 ```
