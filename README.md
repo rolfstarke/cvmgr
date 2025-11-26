@@ -40,3 +40,5 @@ conda install ipykernel
 conda activate onemanstreasure
 python -m ipykernel install --user --name onemanstreasure --display-name "Python (onemanstreasure)"
 restart vscode
+
+automessage a commit
