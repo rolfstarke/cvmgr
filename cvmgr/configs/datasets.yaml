@@ -1,10 +1,38 @@
+# the dataset names must match fiftyone
+# the splits 
+
+mock_data_1:
+  samples_per_split: 100
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: &type1 "detections"    
+  download_splits: &splits1 ["train", "val", "test"]  
+  download_classes: &classes1            
+    - "Door"
+  export_splits: *splits1                 
+  export_classes: *classes1              
+  export_type: *type1   
+    
+
+mock_data_2:
+  samples_per_split: 100
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: &type2 "detections"
+  download_splits: &splits2 ["train", "val", "test"]
+  download_classes: &classes2
+    - "Door handle"
+  export_splits: *splits2
+  export_classes: *classes2
+  export_type: *type2
+
 oi_v7_custom_54:
   samples_per_split: 100
   host: fiftyone_zoo
   origin: open-images-v7
-  type: "detections"
-  splits: ["train", "validation", "test"]
-  classes:
+  download_type: &type3 "detections"
+  download_splits: &splits3 ["train", "val", "test"]
+  download_classes: &classes3
     - "Cabinetry"
     - "Bidet"
     - "Desk"
@@ -59,3 +87,6 @@ oi_v7_custom_54:
     - "Kitchen & dining room table"
     - "Bathroom accessory"
     - "Kitchen appliance"
+  export_splits: *splits3
+  export_classes: *classes3
+  export_type: *type3

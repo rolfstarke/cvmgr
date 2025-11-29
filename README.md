@@ -42,3 +42,7 @@ python -m ipykernel install --user --name onemanstreasure --display-name "Python
 restart vscode
 
 automessage a commit
+
+# issues
+
+when fiftyone doesnt list datasets, reinstalling and deleting .fiftyone and fiftyone in home seemed to work :/

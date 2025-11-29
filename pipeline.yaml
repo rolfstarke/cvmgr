@@ -2,3 +2,7 @@
 # those must match the name in datasets.yaml
 datasets_to_download:
  - oi_v7_custom_54
+
+datasets_to_merge:
+ - mock_data_1
+ - mock_data_2
