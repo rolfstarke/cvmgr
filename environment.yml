@@ -11,6 +11,11 @@ dependencies:
       - ipywidgets
       - opencv-python
       - supervision
+      - git+https://github.com/huggingface/transformers.git#egg=transformers
+      - torch
+      - torchvision
+      - huggingface-hub
+
 #variables:
 #  LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED: true
 #  LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT: /mnt/EBI-SHARE/06_Data/labelstudio

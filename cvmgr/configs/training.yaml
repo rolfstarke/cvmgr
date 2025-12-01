@@ -1,0 +1,25 @@
+# Model Directory Structure for will be something like this the following
+# only autolabel model will be used for autolabeling obviously
+# only yolo training arguments are supported, check the naming, "model" excluded
+
+# models/
+# ├── dataset_name/
+# │   ├── autolabel/           
+# │   │   ├── results/             
+# │   │   └── metadata.yaml        
+# │   ├── yolo11s_standard/
+ 
+default_training_config: &default_training
+  # epochs: 100
+  model: yolo11n-seg
+  imgsz: 640
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  
+mock_data_1:
+  autolabel:
+    <<: *default_training
+    epochs: 3
+    time: null

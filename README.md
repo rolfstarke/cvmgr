@@ -6,7 +6,10 @@ bash git clone https://github.com/rolfstarke/onemanstreasure.git
 ```
 
 conda env create -f environment.yml
-conda activate onemanstreasure
+conda activate cvmgr
+
+to update the existing env
+conda env update --file environment.yml --prune
 
 # fiftyone cli
 

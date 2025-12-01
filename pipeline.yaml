@@ -6,3 +6,5 @@ datasets_to_download:
 datasets_to_merge:
  - mock_data_1
  - mock_data_2
+
+configs_to_train:
