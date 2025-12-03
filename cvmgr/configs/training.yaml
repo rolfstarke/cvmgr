@@ -21,5 +21,11 @@ default_training_config: &default_training
 mock_data_1:
   autolabel:
     <<: *default_training
+    name: autolabel
     epochs: 3
+    time: null
+  nonconfig:
+    <<: *default_training
+    name: nonconfig
+    epochs: 1
     time: null

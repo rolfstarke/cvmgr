@@ -16,18 +16,18 @@ logging.basicConfig(
     format='%(asctime)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
-logger = logging.getLogger(__name__)
-
-
 
 pipeline_path = pathlib.Path('pipeline.yaml')
 with pipeline_path.open('r') as file:
-    pipeline = yaml.safe_load(file)
+    pipeline_yaml = yaml.safe_load(file)
 
 datasets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "datasets.yaml"
 with datasets_path.open('r') as file:
-    all_dataset_configs = yaml.safe_load(file)
+    dataset_cfgs_yaml = yaml.safe_load(file)
 
+training_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "training.yaml"
+with training_path.open('r') as file:
+    training_cfgs_yaml = yaml.safe_load(file)
 
 
 parser = argparse.ArgumentParser()
@@ -39,18 +39,20 @@ args = parser.parse_args()
 
 try:
     if args.download:
-        for dataset in pipeline.get("datasets_to_download", []):
-            data_cfg = all_dataset_configs.get(dataset)
+        for dataset in pipeline_yaml.get("datasets_to_download", []):
+            data_cfg = dataset_cfgs_yaml.get(dataset)
             fetch_dataset(dataset_name=dataset, config=data_cfg)
 
     if args.merge:
-        for dataset in pipeline.get("datasets_to_merge", []):
-            data_cfg = all_dataset_configs.get(dataset)
-            training_cfg = all_training_configs.get(dataset)
+        for dataset in pipeline_yaml.get("datasets_to_merge", []):
+            data_cfg = dataset_cfgs_yaml.get(dataset)
             #fetch_dataset(dataset_name=dataset, config=data_cfg)
             #redistribute_splits(dataset_name=dataset)
             #export_yolo_dataset(dataset_name=dataset, config=data_cfg, replace=False)
-            train_yolo_model(dataset_name=dataset, config_name="autolabel")
+
+            #training_cfg = training_cfgs_yaml.get(dataset).get("autolabel")
+            for training_cfg in training_cfgs_yaml.get(dataset).items():
+                train_yolo_model(dataset_name=dataset, config=training_cfg)
 
 
     #if args.train:
