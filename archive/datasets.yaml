@@ -1,0 +1,71 @@
+
+
+oi_v7_custom_54:
+- host: fiftyone_zoo
+- max_samples: 100
+- origin: open_images_v7
+- type: detection
+- splits: ["train", "validation", "test"]
+- classes:
+  - "Cabinetry"
+  - "Bidet"
+  - "Desk"
+  - "Oven"
+  - "Couch"
+  - "Whiteboard"
+  - "Door"
+  - "Shower"
+  - "Vase"
+  - "Wardrobe"
+  - "Gas stove"
+  - "Nightstand"
+  - "Window blind"
+  - "Street light"
+  - "Power plugs and sockets"
+  - "Door handle"
+  - "Bathtub"
+  - "Houseplant"
+  - "Kitchen utensil"
+  - "Light switch"
+  - "Ceiling fan"
+  - "Sofa bed"
+  - "Heater"
+  - "Curtain"
+  - "Bed"
+  - "Fireplace"
+  - "Kitchenware"
+  - "Bookcase"
+  - "Refrigerator"
+  - "Filing cabinet"
+  - "Table"
+  - "Bathroom cabinet"
+  - "Mirror"
+  - "Chest of drawers"
+  - "Infant bed"
+  - "Cupboard"
+  - "Picture frame"
+  - "Coffee table"
+  - "Toilet"
+  - "Countertop"
+  - "Waste container"
+  - "Furniture"
+  - "Bench"
+  - "Window"
+  - "Closet"
+  - "Lamp"
+  - "Flowerpot"
+  - "Drawer"
+  - "Microwave oven"
+  - "Shelf"
+  - "Light bulb"
+  - "Kitchen & dining room table"
+  - "Bathroom accessory"
+  - "Kitchen appliance"
+
+
+  coco_2917_custom:
+    coco-2017:
+      classes:
+        - "chair"
+      splits: ["train", "validation", "test"]
+

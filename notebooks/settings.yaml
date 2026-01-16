@@ -1,0 +1,150 @@
+
+
+
+training_datasets:
+
+- type: "multiclass"
+  name: "der_merger-57422"
+- type: "multiclass"
+  name: "open-image-v7-yolov5"
+
+training_configurations:
+  - # epochs: 1
+    imgsz: 640
+    # time: 9 # Time in hours 
+    patience: 40 # number of epochs with no improvement before stopping
+    batch: 0.9 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+#    epochs: 1
+  #   img_size: 640
+  #   time: 3 # Time in hours 
+  #   patience: 15 # number of epochs with no improvement before stopping
+  #   batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+
+  
+
+
+
+models:
+  doors:
+    Door: 0.6
+  windows:
+    window: 0.6
+  lights:
+    light: 0.6
+  open-images-v7:
+    classes:
+
+
+roboflow_datasets:
+  ebi_full:
+    api_key: "AgfWlgODe2lXi5Nh5VTu"
+    workspace: "made-srcnb"
+    project: "ebi-fused"
+    version: 4
+    type: "multiclass"
+
+  ebi_rundgang:
+    api_key: "ADColuoy8Ft64vwHwB5u"
+    workspace: "rundgang"
+    project: "ebi-rundgang-fused-qooqx"
+    version: 1
+    type: "multiclass"
+
+  rabbits:
+    api_key: "AgfWlgODe2lXi5Nh5VTu"
+    workspace: "tafeln"
+    project: "kaninchen"
+    version: 2
+    type: "rabbits"
+
+  beer:
+    api_key: "AgfWlgODe2lXi5Nh5VTu"
+    workspace: "tree-detection-zocbs"
+    project: "bier_ki"
+    version: 1
+    type: "beer"
+
+  windows:
+    api_key: "AgfWlgODe2lXi5Nh5VTu"
+    workspace: "tafeln"
+    project: "fensterfurmodel"
+    version: 5
+    type: "windows"
+
+  lights:
+    api_key: "AgfWlgODe2lXi5Nh5VTu"
+    workspace: "tree-detection-zocbs"
+    project: "light_detect_3"
+    version: 2
+    type: "lights"
+
+  ebi_evaluation:
+    api_key: "AgfWlgODe2lXi5Nh5VTu"
+    workspace: "made-srcnb"
+    project: "room312_and_leuthener"
+    version: 2
+    type: "multiclass"
+
+fiftyone_zoo:
+  open-images-v7:
+    classes:
+    - "Cabinetry"
+    - "Bidet"
+    - "Desk"
+    - "Oven"
+    - "Couch"
+    - "Whiteboard"
+    - "Door"
+    - "Shower"
+    - "Vase"
+    - "Wardrobe"
+    - "Gas stove"
+    - "Nightstand"
+    - "Window blind"
+    - "Street light"
+    - "Power plugs and sockets"
+    - "Door handle"
+    - "Bathtub"
+    - "Houseplant"
+    - "Kitchen utensil"
+    - "Light switch"
+    - "Ceiling fan"
+    - "Sofa bed"
+    - "Heater"
+    - "Curtain"
+    - "Bed"
+    - "Fireplace"
+    - "Kitchenware"
+    - "Bookcase"
+    - "Refrigerator"
+    - "Filing cabinet"
+    - "Table"
+    - "Bathroom cabinet"
+    - "Mirror"
+    - "Chest of drawers"
+    - "Infant bed"
+    - "Cupboard"
+    - "Picture frame"
+    - "Coffee table"
+    - "Toilet"
+    - "Countertop"
+    - "Waste container"
+    - "Furniture"
+    - "Bench"
+    - "Window"
+    - "Closet"
+    - "Lamp"
+    - "Flowerpot"
+    - "Drawer"
+    - "Microwave oven"
+    - "Shelf"
+    - "Light bulb"
+    - "Kitchen & dining room table"
+    - "Bathroom accessory"
+    - "Kitchen appliance"
+    splits: ["train", "validation", "test"]
+  coco-2017:
+    classes:
+      - "chair"
+    splits: ["train", "validation", "test"]
+

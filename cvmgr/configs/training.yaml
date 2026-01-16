@@ -1,0 +1,89 @@
+# Model Directory Structure for will be something like this the following
+# only autolabel model will be used for autolabeling obviously
+# only yolo training arguments are supported, check the naming, "model" excluded
+
+# models/
+# ├── dataset_name/
+# │   ├── autolabel/           
+# │   │   ├── results/             
+# │   │   └── metadata.yaml        
+# │   ├── yolo11s_standard/
+ 
+default_training_config:
+  #epochs: 1
+  model: yolo11n-seg
+  name: default
+  imgsz: 640
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: 4
+
+
+training_config_x: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: config_x
+  imgsz: 640
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: 4
+
+training_config_x_1280: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: config_x
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: -1 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: 4
+
+optimized_training_config:
+  model: yolo11s-seg
+  name: optimized
+  imgsz: 640
+  time: 24
+  patience: 30
+  batch: -1
+  save: true
+  cache: true
+  device: 4
+  hsv_h: 0.015       # HSV-Hue augmentation (fraction)
+  hsv_s: 0.7         # HSV-Saturation augmentation (fraction)
+  hsv_v: 0.4         # HSV-Value augmentation (fraction)
+  degrees: 0.0       # rotation degrees
+  translate: 0.1     # translation fraction
+  scale: 0.5         # scaling gain
+  shear: 0.0         # shear degrees
+  perspective: 0.0   # perspective transform
+  flipud: 0.0        # flip up-down probability
+  fliplr: 0.5        # flip left-right probability
+  mosaic: 1.0        # mosaic probability
+  mixup: 0.0         # mixup probability
+  copy_paste: 0.0    # copy-paste probability
+
+multigpu_training_config:
+
+mock_data_1:
+  autolabel:
+    name: autolabel
+    epochs: 3
+    time: null
+  nonconfig:
+    name: nonconfig
+    epochs: 1
+    time: null
+
+mock_data_2:
+  autolabel:
+    name: autolabel
+    epochs: 3
+    time: null
