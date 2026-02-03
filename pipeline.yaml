@@ -4,34 +4,31 @@ datasets_to_download:
 # - oi_v7_custom_54
 #  - mock_data_1
 #  - mock_data_2
-  - oi_v7_custom_13
+#  - oi_v7_custom_13
 
-#  - boiler
-#  - windowframe
-#  - airvent
-#  - elevator
-#  - duct
-#  - ceilinglight
-#  - exitlight
+  - ceilinglight
+  - exitlight
+  - windowframe
+  - airvent
+  - elevator
+  - duct
+  - boiler
+
 
 datasets_to_train:
   boiler: 
-  - training_config_x
   airvent: 
-  - training_config_x
+  duct:
   elevator: 
-  - training_config_x
-#  duct: 
-#  - training_config_x
   ceilinglight: 
-  - training_config_x
-  exitlight:
-  - training_config_x
   windowframe: 
-  - default_training_config
-  - training_config_x
+  exitlight:
   - training_config_x_1280
+  - training_config_x
   - optimized_training_config
+  - training_config_autoaugment
+  - training_config_augmix
+  - training_config_randaugment
 
 datasets_to_merge:
   - mock_data_1
@@ -42,3 +39,12 @@ datasets_to_segment:
 #  - mark_lane_leuthener_custom_21
 #  - mark_lane_leuthener_custom_21_fullhd
   - mark_lane_leuthener_custom_21_hd
+
+blacklog:
+  - training_config_x
+  - training_config_x_1280
+  - optimized_training_config
+  - training_config_autoaugment
+  - training_config_augmix
+  - training_config_randaugment
+

@@ -1,19 +1,14 @@
+from xml.parsers.expat import model
 import fiftyone
 from ultralytics import YOLO
 import torch
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
-def test(dataset_name: str, prompt: str):
-    # Load dataset
-    dataset = fiftyone.load_dataset(dataset_name)
-    if prompt in dataset.get_field_schema():
-        dataset.delete_sample_field(prompt)
-        print(f"Cleared '{prompt}' field from dataset '{dataset_name}'")
-    else:
-        print(f"No '{prompt}' field found in dataset '{dataset_name}'")
-    dataset.save()
+def test():
+    model = YOLO("yolo11n.pt")
+    results = model.train(data="/home/rolf/GIT/cvmgr/datasets/exitlight/dataset.yaml", epochs=10, imgsz=1280, device=[-1, -1])
 
 def test2():
 

@@ -17,6 +17,8 @@ def export_yolo_dataset(dataset_name: str, config: dict, replace: bool = False):
     dataset = fiftyone.load_dataset(dataset_name)
 
     for split in config.get("export_splits", []):
+        if split == "valid":
+            split = "val"
         split_view = dataset.match_tags(split)
         split_view.export(
             export_dir=str(export_path),

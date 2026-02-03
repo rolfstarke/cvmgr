@@ -6,6 +6,10 @@ import yaml
 import torch
 import time
 import gc
+import os
+
+
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 datasets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "training.yaml"
 with datasets_path.open('r') as file:
@@ -17,15 +21,21 @@ def train_yolo_model(dataset_name: str, config: dict = None):
 
     logger.info(f"GPU memory before training {dataset_name}: {torch.cuda.memory_allocated()/1024**3:.2f}GB")
     dataset_yaml = pathlib.Path.cwd() / "datasets" / dataset_name / "dataset.yaml"
-    model = YOLO(config.get("model"))
+    model = YOLO(str(config.get("model")))
 
     training_args ={}
     for k,v in config.items():
         if v and k != "model":
-            training_args[k] = v
+            if isinstance(v, pathlib.Path):
+                training_args[k] = str(v)
+            else:
+                training_args[k] = v
 
     training_args["data"] = str(dataset_yaml)
     training_args["project"] = str(pathlib.Path.cwd() / "models" / dataset_name)
+    training_args["device"] = [-1,-1]
+
+    print("Starting training with args:", training_args)
 
     start = time.time()
     results = model.train(**training_args)

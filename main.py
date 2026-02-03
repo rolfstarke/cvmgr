@@ -1,6 +1,6 @@
 import os
 from venv import logger
-os.environ["TOKENIZERS_PARALLELISM"] = "false" 
+# os.environ["TOKENIZERS_PARALLELISM"] = "false" 
 # this needs to be importet before the utils
 import pathlib
 import logging
@@ -59,6 +59,8 @@ try:
     if args.download:
         for dataset in pipeline_yaml.get("datasets_to_download", []):
             fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
+            redistribute_splits(dataset_name=dataset)
+            export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
 
     if args.merge:
         for dataset in pipeline_yaml.get("datasets_to_merge", []):
@@ -80,11 +82,14 @@ try:
     if args.train:
         for dataset in pipeline_yaml.get("datasets_to_download", []):
             fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
-            export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
+            redistribute_splits(dataset_name=dataset)
+            export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
         datasets_to_train = pipeline_yaml.get("datasets_to_train", {})
         for dataset, configs in datasets_to_train.items():
-            for config_name in configs:
-                train_yolo_model(dataset_name=dataset, config=training_cfgs_yaml.get(config_name))
+            if configs:
+                for config_name in configs:
+                    train_yolo_model(dataset_name=dataset, config=training_cfgs_yaml.get(config_name))
+
 
 
     if args.concept:
@@ -104,7 +109,7 @@ try:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):
         #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
         #        test(dataset_name=dataset, prompt=prompt)
-        test2()
+        test()
         
 except Exception as e:
     print(f"An error occurred: {e}")

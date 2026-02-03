@@ -7,36 +7,33 @@
 #   part2:
 #     ...
 
-     
 
 exitlight:
   host: roboflow
-  format: yolov5
+  format: yolov12
   type: "detections"
   api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "exit-lights"
-  workspace: "amadeo-x5pc0"
-  version: 1
+  project: "exit-lights-s6bot"
+  workspace: "made-srcnb"
+  version: 5
   download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]  
   export_classes: [
-    "exit",
-    "left exit",
-    "right exit"
+    "Emergency exit sign"
   ]
 
 ceilinglight:
   host: roboflow
   type: "detections"
-  format: yolov5
+  format: yolov12
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   project: "light_detect_3"
   workspace: "tree-detection-zocbs"
-  version: 1
+  version: 2
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]     
   export_classes: [
-    "light"
+    "Ceiling light"
   ]          
 
 duct:
@@ -44,43 +41,41 @@ duct:
   type: "polylines"
   format: yolov12
   api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "ecw_14_detection-2"
-  workspace: "aseni-u7nsv"
-  version: 13
+  project: "ecw_14_detection-2-7jehm"
+  workspace: "made-srcnb"
+  version: 2
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]    
   export_classes: [
-    "duct trunk",
-    "duct insulation"
+    "Duct"
   ] 
 
 elevator:
   host: roboflow
-  format: yolov5
-  type: "detections"
+  format: yolov12
+  type: "polylines"
   api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "elevator-status"
-  workspace: "elevator-0iq4p"
-  version: 2
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
-  export_classes: [
-    "Closed Elevator",
-    "Open Elevator"
-  ]
-                
-airvent:
-  host: roboflow
-  type: "detections"  
-  format: yolov5
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "air-vent-hole-v2"
-  workspace: "shun-x1tqo"
+  project: "elevator-status-o09nl"
+  workspace: "made-srcnb"
   version: 3
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]
   export_classes: [
-    "Air-Vent-Hole"
+    "Elevator",
+  ]
+
+airvent:
+  host: roboflow
+  type: "polylines"  
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "air-vent-hole-v2-jyymj"
+  workspace: "made-srcnb"
+  version: 2
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Vent"
   ]
 
 windowframe:
@@ -88,27 +83,27 @@ windowframe:
   type: "polylines"
   format: yolov12
   api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "windowframe"
-  workspace: "window-3if9l"
-  version: 4
+  project: "windowframe-ekvou"
+  workspace: "made-srcnb"
+  version: 2
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]
   export_classes: [
-    "windowframe",
+    "Window frame",
   ]
 
 boiler:
   host: roboflow
-  format: yolov5
+  format: yolov12
   api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "boiler-9bex8"
-  workspace: "rundgang"
-  version: 1
+  project: "boiler-syvqj"
+  workspace: "made-srcnb"
+  version: 2
   type: "detections"
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]
   export_classes: [
-    "boiler"
+    "Boiler"
   ]
 
 mark_lane_leuthener_custom_21_lowres:
