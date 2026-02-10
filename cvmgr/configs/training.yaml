@@ -19,6 +19,8 @@ default_training_config:
   batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
   save: true
   cache: true
+  device: [-1,-1,-1,-1]
+
 
 
 training_config_x: 
@@ -31,6 +33,7 @@ training_config_x:
   batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
   save: true
   cache: true
+  device: [-1,-1,-1,-1]
 
 
 training_config_x_1280: 
@@ -43,7 +46,177 @@ training_config_x_1280:
   batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
   save: true
   cache: true
+  device: [-1,-1,-1,-1]
 
+training_config_x_1280_hsv_h: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: hsv_h
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  hsv_h: 0.3         # HSV-Saturation augmentation (fraction)
+
+training_config_x_1280_hsv_s: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: hsv_s
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  hsv_s: 1
+
+
+training_config_x_1280_hsv_v: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: hsv_v
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  hsv_v: 0.7
+
+training_config_x_1280_degrees: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: degrees
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  degrees: 180
+
+training_config_x_1280_translate: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: translate
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  translate: 0.9
+
+training_config_x_1280_scale: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: scale
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  scale: 1
+
+training_config_x_1280_shear: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: shear
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  shear: 45
+
+training_config_x_1280_perspective: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: perspective
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  perspective: 0.001
+
+training_config_x_1280_fliplr: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: fliplr
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  fliplr: 0.5
+
+training_config_x_1280_mosaic: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: mosaic
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  mosaic: 0.5
+
+training_config_x_1280_randaugment: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: randaugment
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  auto_augment: randaugment
+
+training_config_x_1280_autoaugment: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: autoaugment
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  auto_augment: autoaugment
+
+training_config_x_1280_augmix: 
+  #epochs: 1
+  model: yolo11x-seg
+  name: augmix
+  imgsz: 1280
+  time: 24 # Time in hours 
+  patience: 30 # number of epochs with no improvement before stopping
+  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  save: true
+  cache: true
+  device: [-1,-1,-1,-1]
+  auto_augment: augmix
 
 optimized_training_config:
   model: yolo11s-seg
@@ -54,7 +227,7 @@ optimized_training_config:
   batch: 4
   save: true
   cache: true
-
+  device: [-1,-1,-1,-1]
   hsv_h: 0.015       # HSV-Hue augmentation (fraction)
   hsv_s: 0.7         # HSV-Saturation augmentation (fraction)
   hsv_v: 0.4         # HSV-Value augmentation (fraction)
@@ -79,7 +252,7 @@ training_config_randaugment:
   save: true
   cache: true
   auto_augment: randaugment
-
+  device: [-1,-1,-1,-1]
 
 training_config_autoaugment:
   model: yolo11x-seg
@@ -91,7 +264,7 @@ training_config_autoaugment:
   save: true
   cache: true
   auto_augment: autoaugment
-  workers: 0
+  device: [-1,-1,-1,-1]
 
 training_config_augmix:
   model: yolo11x-seg
@@ -103,8 +276,8 @@ training_config_augmix:
   save: true
   cache: true  
   auto_augment: augmix
-  workers: 0
-  
+  device: [-1,-1,-1,-1]
+
 mock_data_1:
   autolabel:
     name: autolabel

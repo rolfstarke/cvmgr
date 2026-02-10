@@ -7,6 +7,19 @@
 #   part2:
 #     ...
 
+exitlight_relabeled:
+  host: roboflow
+  format: yolov12
+  type: "detections"
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "exit_lights_relabeled"
+  workspace: "made-srcnb"
+  version: 1
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]  
+  export_classes: [
+    "Emergency exit sign"
+  ]
 
 exitlight:
   host: roboflow
@@ -29,7 +42,7 @@ ceilinglight:
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   project: "light_detect_3"
   workspace: "tree-detection-zocbs"
-  version: 2
+  version: 3
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]     
   export_classes: [
@@ -141,7 +154,7 @@ mark_lane_leuthener_custom_21:
     "Ductwork",
     "Ceiling light",
     "Wall lights",
-    "Emergency escape light",
+    "Emergency exit sign",
     "Mirror",
     "Toilet",
     "Sink",
@@ -175,42 +188,7 @@ mark_lane_leuthener_custom_21_fullhd:
     "Ductwork",
     "Ceiling light",
     "Wall lights",
-    "Emergency escape light",
-    "Mirror",
-    "Toilet",
-    "Sink",
-    "Faucet",
-    "Raised access flooring",
-    "Door",
-    "Window frame",
-    "Glas internal",
-    "Glas external"
-  ]
-
-
-mark_lane_leuthener_custom_21_fullhd:
-  #samples_per_split:
-  type: "detections"
-  host: roboflow
-  format: yolov5
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  workspace: "made-srcnb"
-  project: "isarc2"
-  version: 6
-  download_splits: ["train", "valid", "test"]
-  classes: [
-    "Desk chair",
-    "Conference chair",
-    "Desk",
-    "Filing cabinet",
-    "Heater",
-    "Boiler",
-    "Air flow grill",
-    "Elevator",
-    "Ductwork",
-    "Ceiling light",
-    "Wall lights",
-    "Emergency escape light",
+    "Emergency exit sign",
     "Mirror",
     "Toilet",
     "Sink",
@@ -224,14 +202,14 @@ mark_lane_leuthener_custom_21_fullhd:
 
 
 mark_lane_leuthener_custom_21_hd:
-  #samples_per_split:
+  #samples_per_split: 2
   type: "detections"
   host: roboflow
   format: yolov5
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   workspace: "made-srcnb"
   project: "isarc2"
-  version: 7
+  version: 8
   download_splits: ["train", "valid", "test"]
   classes: [
     "Desk chair",
@@ -245,7 +223,7 @@ mark_lane_leuthener_custom_21_hd:
     "Ductwork",
     "Ceiling light",
     "Wall lights",
-    "Emergency escape light",
+    "Emergency exit sign",
     "Mirror",
     "Toilet",
     "Sink",
@@ -288,7 +266,7 @@ oi_v7_custom_13:
       - "Toilet"
 
       
-oi_v7_custom_2:
+oi_v7_custom_3:
   multipart: true
   mock_data_1:
     samples_per_split: 10
@@ -378,3 +356,16 @@ oi_v7_custom_54:
   export_splits: ["train", "val", "test"]   
   export_classes: *classes4
   export_type: *type3
+
+oi_v7_custom_1:
+  samples_per_split: 30
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "segmentations"    
+  download_splits: ["train", "validation", "test"]  
+  download_classes:            
+
+  export_splits: ["train", "val", "test"]   
+  export_classes:            
+
+  export_type: "segmentations"

@@ -21,7 +21,8 @@ def train_yolo_model(dataset_name: str, config: dict = None):
 
     logger.info(f"GPU memory before training {dataset_name}: {torch.cuda.memory_allocated()/1024**3:.2f}GB")
     dataset_yaml = pathlib.Path.cwd() / "datasets" / dataset_name / "dataset.yaml"
-    model = YOLO(str(config.get("model")))
+    model_string = config.get("model")+".pt"
+    model = YOLO(model_string)
 
     training_args ={}
     for k,v in config.items():
@@ -32,20 +33,23 @@ def train_yolo_model(dataset_name: str, config: dict = None):
                 training_args[k] = v
 
     training_args["data"] = str(dataset_yaml)
-    training_args["project"] = str(pathlib.Path.cwd() / "models" / dataset_name)
-    training_args["device"] = [-1,-1]
+    training_args["project"] = str(pathlib.Path.cwd() / "models" / dataset_name)  # use all available gpus
 
     print("Starting training with args:", training_args)
 
     start = time.time()
     results = model.train(**training_args)
     
+    print("1")
     if results:
         elapsed = time.time() - start
         hours, minutes = int(elapsed // 3600), int((elapsed % 3600) // 60)
         map50 = results.results_dict.get('metrics/mAP50(B)', 'N/A')
         logger.info(f"training completed on: {dataset_name} with {config.get('name')} | Time: {hours}h {minutes}m | mAP50: {map50}")
- 
+        print("2")
+    print("3")
+
+
     # Comprehensive memory cleanup
     del model
     del results

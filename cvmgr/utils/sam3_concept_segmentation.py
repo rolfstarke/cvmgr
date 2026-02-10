@@ -1,11 +1,12 @@
+from .evaluate_model import evaluate_model
 import fiftyone
 import os
 import torch
 import gc
 from .mask_to_polyline import mask_to_polyline
 
-os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["TOKENIZERS_PARALLELISM"] = "true"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def concept_segmentation(dataset_name: str, prompt: str = None, recompute_embeddings: bool = False):
 
@@ -46,7 +47,7 @@ def concept_segmentation(dataset_name: str, prompt: str = None, recompute_embedd
     "Ductwork",
     "Ceiling light",
     "Wall lights",
-    "Emergency escape light",
+    "Emergency escape sign",
     "Mirror",
     "Toilet",
     "Sink",
@@ -64,6 +65,9 @@ def concept_segmentation(dataset_name: str, prompt: str = None, recompute_embedd
         batch_size=4,  # Increased for 4 GPUs
         num_workers=4
     )
+
+    evaluate_model(prediction_labelfield="concept_segmentation", replace=False)
+
     dataset.save()
     #mask_to_polyline(dataset_name=dataset_name, mask_field="concept_segmentation")
 

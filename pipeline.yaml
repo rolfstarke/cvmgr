@@ -6,29 +6,39 @@ datasets_to_download:
 #  - mock_data_2
 #  - oi_v7_custom_13
 
-  - ceilinglight
-  - exitlight
-  - windowframe
-  - airvent
-  - elevator
-  - duct
-  - boiler
+   - oi_v7_custom_1
+#  - windowframe
+#  - airvent
+#  - elevator
+#  - duct
+#  - boiler
 
+#  - mark_lane_leuthener_custom_21_hd
 
 datasets_to_train:
   boiler: 
   airvent: 
   duct:
   elevator: 
-  ceilinglight: 
+  ceilinglight:
   windowframe: 
   exitlight:
+  exitlight_relabeled:
   - training_config_x_1280
-  - training_config_x
-  - optimized_training_config
-  - training_config_autoaugment
-  - training_config_augmix
-  - training_config_randaugment
+  - training_config_x_1280_scale
+  - training_config_x_1280_hsv_h
+  - training_config_x_1280_hsv_s
+  - training_config_x_1280_hsv_v
+  - training_config_x_1280_degrees
+  - training_config_x_1280_translate
+  - training_config_x_1280_shear
+  - training_config_x_1280_perspective
+  - training_config_x_1280_fliplr
+  - training_config_x_1280_mosaic
+  - training_config_x_1280_randaugment
+  - training_config_x_1280_autoaugment
+  - training_config_x_1280_augmix
+
 
 datasets_to_merge:
   - mock_data_1
@@ -40,6 +50,10 @@ datasets_to_segment:
 #  - mark_lane_leuthener_custom_21_fullhd
   - mark_lane_leuthener_custom_21_hd
 
+models_to_evaluate:
+
+  - ceilinglight
+
 blacklog:
   - training_config_x
   - training_config_x_1280
@@ -47,4 +61,20 @@ blacklog:
   - training_config_autoaugment
   - training_config_augmix
   - training_config_randaugment
+
+
+  - training_config_x_1280
+  - training_config_x_1280_hsv_h
+  - training_config_x_1280_hsv_s
+  - training_config_x_1280_hsv_v
+  - training_config_x_1280_degrees
+  - training_config_x_1280_translate
+  - training_config_x_1280_scale
+  - training_config_x_1280_shear
+  - training_config_x_1280_perspective
+  - training_config_x_1280_fliplr
+  - training_config_x_1280_mosaic
+  - training_config_x_1280_randaugment
+  - training_config_x_1280_autoaugment
+  - training_config_x_1280_augmix
 

@@ -29,9 +29,10 @@ from cvmgr import redistribute_splits
 from cvmgr import export_yolo_dataset
 from cvmgr import train_yolo_model
 from cvmgr import sam3_visual_segmentation
-from cvmgr import test, test2
+from cvmgr import test, test2, test3
 from cvmgr import concept_segmentation
 from cvmgr import mask_to_polyline
+from cvmgr import evaluate_model
 
 
 pipeline_path = pathlib.Path('pipeline.yaml')
@@ -53,6 +54,7 @@ parser.add_argument("--merge", help="use the pipeline.yaml to merge datasets", a
 parser.add_argument("--train", help="use the pipeline.yaml to train models", action='store_true')
 parser.add_argument("--concept", help="use the concept segmentation function of SAM3", action='store_true')
 parser.add_argument("--test", help="use the test function", action='store_true')
+parser.add_argument("--evaluate", help="use the pipeline.yaml to evaluate models", action='store_true')
 args = parser.parse_args()
 
 try:
@@ -71,13 +73,7 @@ try:
             #sam3_visual_segmentation(dataset=tmp_dataset, recalculate=False)
             #export_yolo_dataset(dataset_name=dataset, config=data_cfg, replace=True)
 
-        """
-        for dataset in pipeline_yaml.get("datasets_to_merge", []):
-            training_cfg = training_cfgs_yaml.get(dataset).get("autolabel")
-            #for training_cfg in training_cfgs_yaml.get(dataset).items():
-            #    train_yolo_model(dataset_name=dataset, config=training_cfg)
-            train_yolo_model(dataset_name=dataset, config=training_cfg)
-        """       
+    
 
     if args.train:
         for dataset in pipeline_yaml.get("datasets_to_download", []):
@@ -90,26 +86,27 @@ try:
                 for config_name in configs:
                     train_yolo_model(dataset_name=dataset, config=training_cfgs_yaml.get(config_name))
 
-
+    if args.evaluate:
+        for model_name in pipeline_yaml.get("models_to_evaluate", []):
+            models_path = pathlib.Path("/home/rolf/GIT/cvmgr/models") / model_name
+            for subfolder in models_path.iterdir():
+                best = models_path / subfolder / "weights" / "best.pt"
+                label_field = f"{model_name}{subfolder.name}"
+                evaluate_model(prediction_model=best, prediction_labelfield=label_field, replace=True)
+                
 
     if args.concept:
         for dataset in pipeline_yaml.get("datasets_to_segment", []): 
             fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
-            concept_segmentation(dataset_name=dataset, recompute_embeddings=False)
-            #redistribute_splits(dataset_name=dataset)
-            #for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
-            #    try:
-            #        concept_segmentation(dataset_name=dataset, prompt=prompt, recompute_embeddings=False)
-            #    except Exception as e:
-            #        print(f"An error occurred during concept segmentation for dataset '{dataset}' with prompt '{prompt}': {e}")
-            #        import traceback
-            #        traceback.print_exc()
+            redistribute_splits(dataset_name=dataset)
+            concept_segmentation(dataset_name=dataset, recompute_embeddings=True)
+
     
     if args.test:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):
         #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
         #        test(dataset_name=dataset, prompt=prompt)
-        test()
+        test3()
         
 except Exception as e:
     print(f"An error occurred: {e}")
