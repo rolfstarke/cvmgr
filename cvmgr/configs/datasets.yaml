@@ -10,7 +10,7 @@
 exitlight_relabeled:
   host: roboflow
   format: yolov12
-  type: "detections"
+  type: "polylines"
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   project: "exit_lights_relabeled"
   workspace: "made-srcnb"

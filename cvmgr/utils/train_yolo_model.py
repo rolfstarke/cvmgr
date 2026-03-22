@@ -7,14 +7,18 @@ import torch
 import time
 import gc
 import os
+import wandb
 
-
-# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-
+secrets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "secrets.yaml"
 datasets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "training.yaml"
+with secrets_path.open('r') as file:
+    secrets_yaml = yaml.safe_load(file)
 with datasets_path.open('r') as file:
     training_configs = yaml.safe_load(file)
 
+wandb.login(key=secrets_yaml["huggingface"]["token"])
+
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # if no single config is passed, all configs are iterated over
 
 def train_yolo_model(dataset_name: str, config: dict = None):
@@ -40,14 +44,11 @@ def train_yolo_model(dataset_name: str, config: dict = None):
     start = time.time()
     results = model.train(**training_args)
     
-    print("1")
-    if results:
-        elapsed = time.time() - start
-        hours, minutes = int(elapsed // 3600), int((elapsed % 3600) // 60)
-        map50 = results.results_dict.get('metrics/mAP50(B)', 'N/A')
-        logger.info(f"training completed on: {dataset_name} with {config.get('name')} | Time: {hours}h {minutes}m | mAP50: {map50}")
-        print("2")
-    print("3")
+
+    elapsed = time.time() - start
+    hours, minutes = int(elapsed // 3600), int((elapsed % 3600) // 60)
+    map50 = results.results_dict.get('metrics/mAP50(B)', 'N/A')
+    logger.info(f"training completed on: {dataset_name} with {config.get('name')} | Time: {hours}h {minutes}m | mAP50: {map50}")
 
 
     # Comprehensive memory cleanup

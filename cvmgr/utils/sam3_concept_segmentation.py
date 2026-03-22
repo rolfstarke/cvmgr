@@ -32,8 +32,8 @@ def concept_segmentation(dataset_name: str, prompt: str = None, recompute_embedd
         )
 
     model.operation = "concept_segmentation"
-    model.threshold = 0.1
-    model.mask_threshold = 0.1
+    model.threshold = 0.3
+    model.mask_threshold = 0.3
 
     model.prompt =  [
     "Desk chair",
@@ -56,12 +56,14 @@ def concept_segmentation(dataset_name: str, prompt: str = None, recompute_embedd
     "Door",
     "Window frame",
     "Glas internal",
-    "Glas external"
+    "Glas external",
+    "Exit sign",
+    "Fire exit sign"
   ]
 
     dataset.apply_model(
         model,
-        label_field="concept_segmentation",
+        label_field="concept_segmentation_03",
         batch_size=4,  # Increased for 4 GPUs
         num_workers=4
     )

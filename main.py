@@ -33,7 +33,8 @@ from cvmgr import test, test2, test3
 from cvmgr import concept_segmentation
 from cvmgr import mask_to_polyline
 from cvmgr import evaluate_model
-
+from cvmgr import optimize_hyperp
+from cvmgr import optimize_hyperp_ray
 
 pipeline_path = pathlib.Path('pipeline.yaml')
 with pipeline_path.open('r') as file:
@@ -55,6 +56,7 @@ parser.add_argument("--train", help="use the pipeline.yaml to train models", act
 parser.add_argument("--concept", help="use the concept segmentation function of SAM3", action='store_true')
 parser.add_argument("--test", help="use the test function", action='store_true')
 parser.add_argument("--evaluate", help="use the pipeline.yaml to evaluate models", action='store_true')
+parser.add_argument("--optimize", help="use the pipeline.yaml to optimize hyperparameters", action='store_true')
 args = parser.parse_args()
 
 try:
@@ -77,7 +79,7 @@ try:
 
     if args.train:
         for dataset in pipeline_yaml.get("datasets_to_download", []):
-            fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
+            fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
             redistribute_splits(dataset_name=dataset)
             export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
         datasets_to_train = pipeline_yaml.get("datasets_to_train", {})
@@ -92,8 +94,10 @@ try:
             for subfolder in models_path.iterdir():
                 best = models_path / subfolder / "weights" / "best.pt"
                 label_field = f"{model_name}{subfolder.name}"
-                evaluate_model(prediction_model=best, prediction_labelfield=label_field, replace=True)
-                
+                try:
+                    evaluate_model(prediction_model=best, prediction_labelfield=label_field, replace=True)
+                except Exception as e:
+                    print(f"An error occurred while evaluating model {model_name}: {e}")
 
     if args.concept:
         for dataset in pipeline_yaml.get("datasets_to_segment", []): 
@@ -106,8 +110,15 @@ try:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):
         #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
         #        test(dataset_name=dataset, prompt=prompt)
-        test3()
-        
+        evaluate_model(prediction_labelfield="concept_segmentation_03", replace=False)
+
+    if args.optimize:
+        #for dataset in pipeline_yaml.get("datasets_to_segment", []):
+        #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
+        #        test(dataset_name=dataset, prompt=prompt)
+        for dataset in pipeline_yaml.get("models_to_optimize", []):
+            optimize_hyperp(dataset_name=dataset)
+
 except Exception as e:
     print(f"An error occurred: {e}")
     import traceback

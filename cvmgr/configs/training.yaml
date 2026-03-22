@@ -11,7 +11,7 @@
  
 default_training_config:
   epochs: 1
-  model: yolo11n-seg
+  model: yolo26n-seg
   name: default
   imgsz: 1280
   time: 24 # Time in hours 
@@ -34,7 +34,6 @@ training_config_x:
   save: true
   cache: true
   device: [-1,-1,-1,-1]
-
 
 training_config_x_1280: 
   #epochs: 1
@@ -218,65 +217,30 @@ training_config_x_1280_augmix:
   device: [-1,-1,-1,-1]
   auto_augment: augmix
 
-optimized_training_config:
-  model: yolo11s-seg
-  name: optimized
-  imgsz: 640
-  time: 24
-  patience: 30
-  batch: 4
-  save: true
-  cache: true
-  device: [-1,-1,-1,-1]
-  hsv_h: 0.015       # HSV-Hue augmentation (fraction)
-  hsv_s: 0.7         # HSV-Saturation augmentation (fraction)
-  hsv_v: 0.4         # HSV-Value augmentation (fraction)
-  degrees: 0.0       # rotation degrees
-  translate: 0.1     # translation fraction
-  scale: 0.5         # scaling gain
-  shear: 0.0         # shear degrees
-  perspective: 0.0   # perspective transform
-  flipud: 0.0        # flip up-down probability
-  fliplr: 0.5        # flip left-right probability
-  mosaic: 1.0        # mosaic probability
-  mixup: 0.0         # mixup probability
-  copy_paste: 0.0    # copy-paste probability
-
-training_config_randaugment:
+training_config_x_1280_ai_recommendation: 
+  #epochs: 1
   model: yolo11x-seg
-  name: config_x
+  name: ai_recommendation
   imgsz: 1280
   time: 24 # Time in hours 
   patience: 30 # number of epochs with no improvement before stopping
   batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
   save: true
   cache: true
-  auto_augment: randaugment
   device: [-1,-1,-1,-1]
-
-training_config_autoaugment:
-  model: yolo11x-seg
-  name: config_x
-  imgsz: 1280
-  time: 24 # Time in hours 
-  patience: 30 # number of epochs with no improvement before stopping
-  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
-  save: true
-  cache: true
   auto_augment: autoaugment
-  device: [-1,-1,-1,-1]
-
-training_config_augmix:
-  model: yolo11x-seg
-  name: config_x
-  imgsz: 1280
-  time: 24 # Time in hours 
-  patience: 30 # number of epochs with no improvement before stopping
-  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
-  save: true
-  cache: true  
-  auto_augment: augmix
-  device: [-1,-1,-1,-1]
+  mosaic: 1.0
+  mixup: 0.1
+  copy_paste: 0.3
+  multi_scale: true
+  degrees: 10
+  translate: 0.1
+  scale: 0.8
+  shear: 2
+  perspective: 0.001
+  hsv_h: 0.015
+  hsv_s: 0.7
+  hsv_v: 0.4
 
 mock_data_1:
   autolabel:

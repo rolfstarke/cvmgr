@@ -16,6 +16,7 @@ dependencies:
       - torchvision
       - huggingface-hub
       - umap-learn
+      - wandb
 
 #variables:
 #  LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED: true
