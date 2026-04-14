@@ -3,6 +3,10 @@
 /models
 /cvmgr/configs/secrets.yaml
 /logs
+/pre-demolition-audit-objects-sweep
+/runs
+/eval
+
 
 # files
 # settings.env
@@ -51,3 +55,5 @@ notebooks/*.onnx
 notebooks/*.pth
 
 *.pt
+*.onnx
+*.ts

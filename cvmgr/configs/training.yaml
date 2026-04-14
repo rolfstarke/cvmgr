@@ -10,14 +10,15 @@
 # │   ├── yolo11s_standard/
  
 default_training_config:
-  epochs: 1
+  epochs: 2
   model: yolo26n-seg
+  project: pre-demolition-audit-objects-sweep
   name: default
   imgsz: 1280
-  time: 24 # Time in hours 
-  patience: 30 # number of epochs with no improvement before stopping
-  batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
-  save: true
+  #time: 24 # Time in hours 
+  #patience: 30 # number of epochs with no improvement before stopping
+  #batch: 4 # Use the default "chunks" to split the dataset for computation, -1 is auto 60% GPU utilization
+  #save: true
   cache: true
   device: [-1,-1,-1,-1]
 

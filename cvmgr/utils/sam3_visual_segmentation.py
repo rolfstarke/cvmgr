@@ -26,6 +26,10 @@ def sam3_visual_segmentation(dataset: fiftyone.core.dataset.Dataset = None, reca
     
     logger.info(f"Adding masks to {len(samples_without_masks)} samples")
     
+    fiftyone.zoo.register_zoo_model_source(
+        "https://github.com/harpreetsahota204/sam3_images"
+    )
+
     sam3_get_model()
     model = fiftyone.zoo.load_zoo_model("facebook/sam3")
     model.operation = "visual_segmentation"

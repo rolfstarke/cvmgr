@@ -78,10 +78,11 @@ try:
     
 
     if args.train:
-        for dataset in pipeline_yaml.get("datasets_to_download", []):
-            fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
-            redistribute_splits(dataset_name=dataset)
-            export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
+        if pipeline_yaml.get("datasets_to_download", []):
+            for dataset in pipeline_yaml.get("datasets_to_download", []):
+                fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
+                redistribute_splits(dataset_name=dataset)
+                export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
         datasets_to_train = pipeline_yaml.get("datasets_to_train", {})
         for dataset, configs in datasets_to_train.items():
             if configs:
@@ -110,7 +111,9 @@ try:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):
         #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
         #        test(dataset_name=dataset, prompt=prompt)
-        evaluate_model(prediction_labelfield="concept_segmentation_03", replace=False)
+
+        #redistribute_splits(dataset_name="coco-2017-sink")
+        test3()
 
     if args.optimize:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):

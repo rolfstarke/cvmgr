@@ -6,24 +6,31 @@ datasets_to_download:
 #  - mock_data_2
 #  - oi_v7_custom_13
 
-  -   exitlight_relabeled
+  - ceilinglight
 #  - windowframe
 #  - airvent
 #  - elevator
 #  - duct
 #  - boiler
+#  - exitlight
 #  - mark_lane_leuthener_custom_21_hd
 
 datasets_to_train:
-  boiler: 
+  boiler:
+#  - default_training_config
   airvent: 
+#  - default_training_config
   duct:
+#  - default_training_config
   elevator: 
+#  - default_training_config
   ceilinglight:
-  windowframe: 
-  exitlight:
+  - default_training_config
+  windowframe:
+  - default_training_config
   exitlight_relabeled:
-  - training_config_x_1280_ai_recommendation
+  - default_training_config
+  exitlight:
 
 
 datasets_to_merge:

@@ -8,6 +8,7 @@ import time
 import gc
 import os
 import wandb
+from ultralytics import settings
 
 secrets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "secrets.yaml"
 datasets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "training.yaml"
@@ -16,12 +17,17 @@ with secrets_path.open('r') as file:
 with datasets_path.open('r') as file:
     training_configs = yaml.safe_load(file)
 
-wandb.login(key=secrets_yaml["huggingface"]["token"])
+
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # if no single config is passed, all configs are iterated over
 
+
+
 def train_yolo_model(dataset_name: str, config: dict = None):
+
+    settings.update({"wandb": True})
+    wandb.login(key=secrets_yaml["wandb"]["api_key"])
 
     logger.info(f"GPU memory before training {dataset_name}: {torch.cuda.memory_allocated()/1024**3:.2f}GB")
     dataset_yaml = pathlib.Path.cwd() / "datasets" / dataset_name / "dataset.yaml"
@@ -37,23 +43,18 @@ def train_yolo_model(dataset_name: str, config: dict = None):
                 training_args[k] = v
 
     training_args["data"] = str(dataset_yaml)
-    training_args["project"] = str(pathlib.Path.cwd() / "models" / dataset_name)  # use all available gpus
-
-    print("Starting training with args:", training_args)
+    training_args["name"] = str(str(dataset_name) + "_" + training_args["name"])
 
     start = time.time()
     results = model.train(**training_args)
-    
 
     elapsed = time.time() - start
     hours, minutes = int(elapsed // 3600), int((elapsed % 3600) // 60)
-    map50 = results.results_dict.get('metrics/mAP50(B)', 'N/A')
-    logger.info(f"training completed on: {dataset_name} with {config.get('name')} | Time: {hours}h {minutes}m | mAP50: {map50}")
+    logger.info(f"training completed on: {dataset_name} with {config.get('name')} | Time: {hours}h {minutes}m")
 
 
     # Comprehensive memory cleanup
     del model
-    del results
     gc.collect()
     torch.cuda.empty_cache()
     torch.cuda.synchronize()

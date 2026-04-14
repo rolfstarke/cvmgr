@@ -9,7 +9,7 @@ conda env create -f environment.yml
 conda activate cvmgr
 
 to update the existing env
-conda env update --file environment.yml --prune
+[conda env update --file environment.yml --prune]
 
 # fiftyone cli
 apply a view to a dataset like this
