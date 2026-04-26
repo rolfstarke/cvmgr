@@ -1,4 +1,4 @@
-# onemanstreasure
+# cvmgr
 a repo for training computer vision models and merging datasets
 
 ```
@@ -11,6 +11,10 @@ conda activate cvmgr
 to update the existing env
 [conda env update --file environment.yml --prune]
 
+the best parameters from the tuning are saved to
+```
+runs/[task]/tune/best_hyperparameters.yaml
+```
 # fiftyone cli
 apply a view to a dataset like this
 ```
@@ -25,8 +29,10 @@ fiftyone datasets list
 ```
 fiftyone datasets delete <dataset_name>
 ```
-
-
+dataset default location is set in a config at
+```
+~/.fiftyone/config.json
+``
 
 
 

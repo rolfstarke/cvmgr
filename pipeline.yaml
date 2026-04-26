@@ -6,14 +6,17 @@ datasets_to_download:
 #  - mock_data_2
 #  - oi_v7_custom_13
 
-  - ceilinglight
+
+   - oi_v7_custom_clean_10
+#  - oi_v7_custom_null
+#  - ceilinglight
 #  - windowframe
 #  - airvent
 #  - elevator
 #  - duct
 #  - boiler
-#  - exitlight
 #  - mark_lane_leuthener_custom_21_hd
+#  - exitlight
 
 datasets_to_train:
   boiler:
@@ -44,13 +47,13 @@ datasets_to_segment:
   - mark_lane_leuthener_custom_21_hd
 
 models_to_optimize:
-  - exitlight_relabeled
-  - boiler 
-  - airvent
-  - duct
-  - elevator 
-  - ceilinglight
-  - windowframe
+  - exitlight
+#  - boiler 
+#  - airvent
+#  - duct
+#  - elevator 
+#  - ceilinglight
+#  - windowframe
   
 models_to_evaluate:
   - exitlight_relabeled

@@ -5,8 +5,8 @@ import torch
 import gc
 from .mask_to_polyline import mask_to_polyline
 
-os.environ["TOKENIZERS_PARALLELISM"] = "true"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+#os.environ["TOKENIZERS_PARALLELISM"] = "true"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def concept_segmentation(dataset_name: str, prompt: str = None, recompute_embeddings: bool = False):
 

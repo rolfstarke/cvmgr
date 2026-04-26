@@ -1,6 +1,8 @@
 import fiftyone
 import pathlib
 import shutil
+import logging
+logger = logging.getLogger('cvmgr')
 
 def export_yolo_dataset(dataset_name: str, config: dict, replace: bool = False):
 
@@ -15,7 +17,11 @@ def export_yolo_dataset(dataset_name: str, config: dict, replace: bool = False):
     export_path.mkdir(parents=True, exist_ok=True)
 
     dataset = fiftyone.load_dataset(dataset_name)
-
+    if config.get("export_classes") is None:
+        print("aborting! some export classes must be defined")
+        logger.error("aborting! some export classes must be defined")
+        return
+          
     for split in config.get("export_splits", []):
         if split == "valid":
             split = "val"

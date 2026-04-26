@@ -20,17 +20,16 @@ def fiftyone_download(dataset_name: str, config: dict):
     dataset.name = dataset_name
     dataset.persistent = True
 
-    dataset = dataset.filter_labels(
-    "ground_truth",
-    fiftyone.ViewField("label").is_in(config.get('download_classes'))
-    )
+    if config.get('download_classes'):
+        dataset = dataset.filter_labels(
+        "ground_truth",
+        fiftyone.ViewField("label").is_in(config.get('download_classes'))
+        )
        
-    dataset = sam3_visual_segmentation(dataset=dataset)
+    # dataset = sam3_visual_segmentation(dataset=dataset)
 
     if fiftyone.dataset_exists(dataset_name):
         logger.info(f"Dataset {dataset_name} with {len(dataset)} samples downloaded.")
     
-
-
     return dataset
 

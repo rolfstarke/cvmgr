@@ -7,7 +7,7 @@
 #   part2:
 #     ...
 
-exitlight_relabeled:
+exitlight:
   host: roboflow
   format: yolov12
   type: "polylines"
@@ -21,7 +21,7 @@ exitlight_relabeled:
     "Emergency exit sign"
   ]
 
-exitlight:
+exitlight_old:
   host: roboflow
   format: yolov12
   type: "detections"
@@ -235,6 +235,48 @@ mark_lane_leuthener_custom_21_hd:
     "Glas external"
   ]
 
+oi_v7_complete:
+  #samples_per_split: null  # or remove line entirely 
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "detections"
+  download_splits: ["train", "validation", "test"]
+  #download_classes: null   # Download all classes instead of empty list
+  export_splits: ["train", "val", "test"]   
+  export_classes: ["chair"]
+
+
+oi_v7_custom_clean:
+  samples_per_split: 10
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "detections"
+  download_splits: ["train", "validation", "test"]
+  download_classes: []   
+  export_splits: ["train", "val", "test"]   
+  export_classes: ["chair"]
+
+oi_v7_custom_clean_10:
+  samples_per_split: 10
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "detections"
+  download_splits: ["train", "validation", "test"]
+  download_classes: []   
+  export_splits: ["train", "val", "test"]   
+  export_classes: ["chair"]
+
+
+oi_v7_custom_null:
+  samples_per_split: 100
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "detections"
+  download_splits: ["train", "validation", "test"]
+  download_classes:    
+  export_splits: ["train", "val", "test"]   
+  export_classes: 
+
 oi_v7_custom_13:
   multipart: true
   oi_v7_custom_8:
@@ -296,7 +338,7 @@ oi_v7_custom_54:
   samples_per_split: 100
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: &type3 "detections"
+  download_type: "detections"
   download_splits: ["train", "validation", "test"]
   download_classes: &classes4
     - "Cabinetry"
@@ -355,7 +397,7 @@ oi_v7_custom_54:
     - "Kitchen appliance"
   export_splits: ["train", "val", "test"]   
   export_classes: *classes4
-  export_type: *type3
+  export_type: 
 
 oi_v7_custom_1:
   samples_per_split: 30

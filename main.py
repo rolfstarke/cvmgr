@@ -35,6 +35,7 @@ from cvmgr import mask_to_polyline
 from cvmgr import evaluate_model
 from cvmgr import optimize_hyperp
 from cvmgr import optimize_hyperp_ray
+from cvmgr import fiftyone_import
 
 pipeline_path = pathlib.Path('pipeline.yaml')
 with pipeline_path.open('r') as file:
@@ -113,14 +114,19 @@ try:
         #        test(dataset_name=dataset, prompt=prompt)
 
         #redistribute_splits(dataset_name="coco-2017-sink")
-        test3()
+        
+        #fetch_dataset(dataset_name="oi_v7_complete", config=dataset_cfgs_yaml.get("oi_v7_complete"), replace=True)
+
+        #fiftyone_import(dataset_name="oi_v7_custom_clean_10", config=dataset_cfgs_yaml.get("oi_v7_custom_clean_10"))
+        redistribute_splits(dataset_name="oi_v7_complete")
+        export_yolo_dataset(dataset_name="oi_v7_complete", config=dataset_cfgs_yaml.get("oi_v7_complete"), replace=True)
 
     if args.optimize:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):
         #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
         #        test(dataset_name=dataset, prompt=prompt)
         for dataset in pipeline_yaml.get("models_to_optimize", []):
-            optimize_hyperp(dataset_name=dataset)
+            optimize_hyperp_ray(dataset_name=dataset)
 
 except Exception as e:
     print(f"An error occurred: {e}")

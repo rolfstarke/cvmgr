@@ -17,6 +17,13 @@ dependencies:
       - huggingface-hub
       - umap-learn
       - wandb
+      - sam2
+      - "ray[tune]"
+      - optuna
+      - hyperopt
+
+
+
 
 #variables:
 #  LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED: true

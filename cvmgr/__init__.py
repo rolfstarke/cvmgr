@@ -9,11 +9,11 @@ from .utils.sam3_get_model import sam3_get_model
 from .utils.fiftyone_replace import fiftyone_replace
 from .utils.sam3_concept_segmentation import concept_segmentation
 from .utils.roboflow_download import roboflow_download
-from .utils.fiftyone_import import fifyone_import
+from .utils.fiftyone_import import fiftyone_import
 from .utils.mask_to_polyline import mask_to_polyline
 from .utils.evaluate_model import evaluate_model
 from .utils.test import test, test2, test3
 from .utils.optimize_hyperp import optimize_hyperp
 from .utils.optimize_hyperp_ray import optimize_hyperp_ray
-
+        
 # maybe fiftyone_download doesnt need to be imported here bc its imported in fetch_dataset.py

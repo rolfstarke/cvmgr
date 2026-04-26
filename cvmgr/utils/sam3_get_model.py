@@ -13,7 +13,8 @@ with secrets_path.open('r') as file:
 def sam3_get_model():
     
     login(secrets_yaml["huggingface"]["token"])
-    
+
+
     if "https://github.com/harpreetsahota204/sam3_images" in fiftyone.zoo.list_zoo_model_sources():
         logging.info("SAM3 model source already registered.")
     else:
