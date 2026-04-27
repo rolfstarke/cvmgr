@@ -1,5 +1,4 @@
 import pathlib
-from .fiftyone_import import fiftyone_import
 import fiftyone
 import roboflow
 import shutil

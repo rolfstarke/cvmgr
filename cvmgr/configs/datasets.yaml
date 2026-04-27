@@ -254,7 +254,7 @@ oi_v7_custom_clean:
   download_splits: ["train", "validation", "test"]
   download_classes: []   
   export_splits: ["train", "val", "test"]   
-  export_classes: ["chair"]
+  export_classes: ["__none__"]
 
 oi_v7_custom_clean_10:
   samples_per_split: 10

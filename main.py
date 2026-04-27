@@ -113,13 +113,15 @@ try:
         #    for prompt in dataset_cfgs_yaml.get(dataset).get("classes", []):
         #        test(dataset_name=dataset, prompt=prompt)
 
-        #redistribute_splits(dataset_name="coco-2017-sink")
-        
-        #fetch_dataset(dataset_name="oi_v7_complete", config=dataset_cfgs_yaml.get("oi_v7_complete"), replace=True)
+
+        #fetch_dataset(dataset_name="oi_v7_custom_clean", config=dataset_cfgs_yaml.get("oi_v7_custom_clean"), replace=True)
+        #redistribute_splits(dataset_name="oi_v7_custom_clean")
+        export_yolo_dataset(dataset_name="oi_v7_custom_clean", config=dataset_cfgs_yaml.get("oi_v7_custom_clean"), replace=True)
 
         #fiftyone_import(dataset_name="oi_v7_custom_clean_10", config=dataset_cfgs_yaml.get("oi_v7_custom_clean_10"))
-        redistribute_splits(dataset_name="oi_v7_complete")
-        export_yolo_dataset(dataset_name="oi_v7_complete", config=dataset_cfgs_yaml.get("oi_v7_complete"), replace=True)
+        
+        #redistribute_splits(dataset_name="oi_v7_complete")
+        #export_yolo_dataset(dataset_name="oi_v7_complete", config=dataset_cfgs_yaml.get("oi_v7_complete"), replace=True)
 
     if args.optimize:
         #for dataset in pipeline_yaml.get("datasets_to_segment", []):
