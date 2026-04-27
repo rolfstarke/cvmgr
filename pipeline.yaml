@@ -44,7 +44,7 @@ datasets_to_merge:
 datasets_to_segment:
 #  - mark_lane_leuthener_custom_21
 #  - mark_lane_leuthener_custom_21_fullhd
-  - mark_lane_leuthener_custom_21_hd
+  - oi_v7_custom_clean
 
 models_to_optimize:
   - exitlight

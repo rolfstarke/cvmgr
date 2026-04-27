@@ -24,6 +24,11 @@ import argparse
 import fiftyone
 import fiftyone.utils.random
 import yaml
+
+import sys
+import json
+import subprocess
+
 from cvmgr import fetch_dataset
 from cvmgr import redistribute_splits
 from cvmgr import export_yolo_dataset
@@ -102,10 +107,32 @@ try:
                     print(f"An error occurred while evaluating model {model_name}: {e}")
 
     if args.concept:
-        for dataset in pipeline_yaml.get("datasets_to_segment", []): 
+        sam3_python = "/home/rolf/anaconda3/envs/sam3/bin/python"
+        sam3_script = "/home/rolf/GIT/sam3/sam3_multiclass_inference.py"
+        for dataset in pipeline_yaml.get("datasets_to_segment", []):
+            
             fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
             redistribute_splits(dataset_name=dataset)
-            concept_segmentation(dataset_name=dataset, recompute_embeddings=True)
+            export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
+            
+            print(f"Starting SAM3 multiclass inference for dataset: {dataset}")
+            result = subprocess.run(
+                [
+                    sam3_python,
+                    sam3_script,
+                    "--dataset_name", dataset,
+                    "--config", json.dumps(dataset_cfgs_yaml.get(dataset)),
+                    "--replace",
+                ],
+                cwd="/home/rolf/GIT/sam3",
+            )
+
+            if result.returncode == 0:
+                print(f"SAM3 processing completed for {dataset}")
+            else:
+                print(f"SAM3 processing failed for {dataset} (exit code {result.returncode}), continuing...")
+            
+            fiftyone_import(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
 
     
     if args.test:
