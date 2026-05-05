@@ -18,7 +18,7 @@ def fiftyone_import(dataset_name: str, config: dict, replace: bool = False):
         print(f"Dataset {dataset_name} already exists and replace is set to True. Deleting existing dataset and re-importing.")
         logger.info(f"Dataset {dataset_name} already exists and replace is set to True. Deleting existing dataset and re-importing.")
 
-    import_path = pathlib.Path.cwd() / "datasets" / dataset_name
+    import_path = pathlib.Path(fiftyone.config.default_dataset_dir) / dataset_name
     
     dataset = fiftyone.Dataset(dataset_name, persistent=True)
     for split in config.get("download_splits", []):
@@ -36,8 +36,8 @@ def fiftyone_import(dataset_name: str, config: dict, replace: bool = False):
     #if config.get("samples_per_split"):
     #    view = dataset.take(config.get("samples_per_split")*len(config.get("download_splits", [])))
     #    dataset.delete_samples(dataset.exclude(view))
-    #if config.get("type") == "detections":
-    #    dataset = sam2_visual_segmentation(dataset, recalculate=False)
+    if config.get("type") == "detections":
+        dataset = sam2_visual_segmentation(dataset, recalculate=False)
     
     dataset.save()
     logger.info(f"FiftyOne dataset {dataset_name} imported: {len(dataset)} samples across {len(config['download_splits'])} splits")

@@ -11,49 +11,46 @@ import wandb
 from ultralytics import settings
 
 secrets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "secrets.yaml"
-datasets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "training.yaml"
+resources_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "resources.yaml"
 with secrets_path.open('r') as file:
     secrets_yaml = yaml.safe_load(file)
-with datasets_path.open('r') as file:
-    training_configs = yaml.safe_load(file)
+with resources_path.open('r') as file:
+    resources = yaml.safe_load(file)
 
+def train_yolo_model(dataset_name: str):
 
-
-# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-# if no single config is passed, all configs are iterated over
-
-
-
-def train_yolo_model(dataset_name: str, config: dict = None):
+    os.environ["CUDA_VISIBLE_DEVICES"] = resources["train"]["cuda_visible_devices"]
 
     settings.update({"wandb": True})
     wandb.login(key=secrets_yaml["wandb"]["api_key"])
 
     logger.info(f"GPU memory before training {dataset_name}: {torch.cuda.memory_allocated()/1024**3:.2f}GB")
-    dataset_yaml = pathlib.Path.cwd() / "datasets" / dataset_name / "dataset.yaml"
-    model_string = config.get("model")+".pt"
-    model = YOLO(model_string)
 
-    training_args ={}
-    for k,v in config.items():
-        if v and k != "model":
-            if isinstance(v, pathlib.Path):
-                training_args[k] = str(v)
-            else:
-                training_args[k] = v
+    configs_dir = pathlib.Path.cwd() / "cvmgr" / "configs" / "training"
+    existing = sorted(
+        configs_dir.glob(f"{dataset_name}_*.yaml"),
+        key=lambda p: float(p.stem.rsplit("_", 1)[-1].replace("-", ".")),
+    )
+    resolved_cfg = existing[-1] if existing else configs_dir / "default.yaml"
+    logger.info(f"Using YOLO cfg: {resolved_cfg}")
 
-    training_args["data"] = str(dataset_yaml)
-    training_args["name"] = str(str(dataset_name) + "_" + training_args["name"])
+    with resolved_cfg.open("r") as f:
+        cfg_yaml = yaml.safe_load(f)
+    model = YOLO(cfg_yaml.get("model"))
 
     start = time.time()
-    results = model.train(**training_args)
+    train_resources = resources["train"]
+    results = model.train(
+        cfg=str(resolved_cfg),
+        data=str(pathlib.Path.cwd() / "datasets" / dataset_name / "dataset.yaml"),
+        workers=train_resources["workers"],
+        batch=train_resources["batch"],
+    )
 
     elapsed = time.time() - start
     hours, minutes = int(elapsed // 3600), int((elapsed % 3600) // 60)
-    logger.info(f"training completed on: {dataset_name} with {config.get('name')} | Time: {hours}h {minutes}m")
+    logger.info(f"training completed on: {dataset_name} | Time: {hours}h {minutes}m")
 
-
-    # Comprehensive memory cleanup
     del model
     gc.collect()
     torch.cuda.empty_cache()

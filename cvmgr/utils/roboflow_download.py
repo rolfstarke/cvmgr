@@ -8,6 +8,7 @@ import yaml
 import logging
 logger = logging.getLogger('cvmgr')
 from .fiftyone_replace import fiftyone_replace
+from .fiftyone_import import fiftyone_import
 
 def roboflow_download(dataset_name: str, config: dict):
 
@@ -20,7 +21,7 @@ def roboflow_download(dataset_name: str, config: dict):
            .version(config["version"])
            .download(config["format"]))
     
-    download_path=pathlib.Path.home() / "Fiftyone" / dataset_name
+    download_path = pathlib.Path(fiftyone.config.default_dataset_dir) / dataset_name
     images_dir = download_path / "images"
     labels_dir = download_path / "labels"
 
@@ -90,7 +91,7 @@ def roboflow_download(dataset_name: str, config: dict):
 
     shutil.rmtree(pathlib.Path(dataset.location))
 
-    fifyone_import(dataset_name, config)
+    fiftyone_import(dataset_name, config)
 
 
 

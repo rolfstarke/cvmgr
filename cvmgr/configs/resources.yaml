@@ -1,0 +1,14 @@
+optimize:
+  cuda_visible_devices: "0,1"
+  model: "yolo26x-seg.pt"
+  epochs: 1
+  batch: 8
+  workers: 8
+  gpu_per_trial: 1
+  iterations: 3
+  search_alg: "optuna"
+
+train:
+  cuda_visible_devices: "0,1,2,3"
+  workers: 8
+  batch: 4

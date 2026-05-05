@@ -9,7 +9,7 @@ pathlib.Path("logs").mkdir(exist_ok=True)
 logging.basicConfig(
     filename='logs/full.log', 
     level=logging.INFO,
-    format='\033[95m%(asctime)s - %(message)s\033[0m',
+    format='%(asctime)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 app_logger = logging.getLogger('cvmgr')
@@ -50,10 +50,6 @@ datasets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "datasets.yaml"
 with datasets_path.open('r') as file:
     dataset_cfgs_yaml = yaml.safe_load(file)
 
-training_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "training.yaml"
-with training_path.open('r') as file:
-    training_cfgs_yaml = yaml.safe_load(file)
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--download", help="use the pipeline.yaml to download datasets", action='store_true')
@@ -81,19 +77,9 @@ try:
             #sam3_visual_segmentation(dataset=tmp_dataset, recalculate=False)
             #export_yolo_dataset(dataset_name=dataset, config=data_cfg, replace=True)
 
-    
-
     if args.train:
-        if pipeline_yaml.get("datasets_to_download", []):
-            for dataset in pipeline_yaml.get("datasets_to_download", []):
-                fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
-                redistribute_splits(dataset_name=dataset)
-                export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=False)
-        datasets_to_train = pipeline_yaml.get("datasets_to_train", {})
-        for dataset, configs in datasets_to_train.items():
-            if configs:
-                for config_name in configs:
-                    train_yolo_model(dataset_name=dataset, config=training_cfgs_yaml.get(config_name))
+        for dataset in pipeline_yaml.get("datasets_to_train", []):
+            train_yolo_model(dataset_name=dataset)
 
     if args.evaluate:
         for model_name in pipeline_yaml.get("models_to_evaluate", []):
@@ -107,22 +93,21 @@ try:
                     print(f"An error occurred while evaluating model {model_name}: {e}")
 
     if args.concept:
-        sam3_python = "/home/rolf/anaconda3/envs/sam3/bin/python"
-        sam3_script = "/home/rolf/GIT/sam3/sam3_multiclass_inference.py"
+        conda_exe = os.environ.get("CONDA_EXE", "/home/rolf/anaconda3/bin/conda")
+        sam3_script = "/home/rolf/GIT/sam3/sam3_inference_fiftyone.py"
         for dataset in pipeline_yaml.get("datasets_to_segment", []):
-            
+            '''
             fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
-            redistribute_splits(dataset_name=dataset)
-            export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
             
             print(f"Starting SAM3 multiclass inference for dataset: {dataset}")
             result = subprocess.run(
                 [
-                    sam3_python,
-                    sam3_script,
+                    conda_exe, "run", "-n", "sam3", "--no-capture-output",
+                    "python", sam3_script,
                     "--dataset_name", dataset,
                     "--config", json.dumps(dataset_cfgs_yaml.get(dataset)),
                     "--replace",
+                    "--label_field", "ground_truth"
                 ],
                 cwd="/home/rolf/GIT/sam3",
             )
@@ -131,8 +116,11 @@ try:
                 print(f"SAM3 processing completed for {dataset}")
             else:
                 print(f"SAM3 processing failed for {dataset} (exit code {result.returncode}), continuing...")
+            '''
+            data_cfg = dataset_cfgs_yaml.get(dataset, {})
+            #redistribute_splits(dataset_name=dataset)
             
-            fiftyone_import(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
+            export_yolo_dataset(dataset_name=dataset, config=data_cfg, replace=True)
 
     
     if args.test:
