@@ -112,7 +112,7 @@ boiler:
   project: "boiler-syvqj"
   workspace: "made-srcnb"
   version: 2
-  type: "detections"
+  type: "polylines"
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]
   export_classes: [

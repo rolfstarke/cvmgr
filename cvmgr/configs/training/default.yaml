@@ -9,14 +9,14 @@ mode: train # (str) YOLO mode, i.e. train, val, predict, export, track, benchmar
 # Train settings -------------------------------------------------------------------------------------------------------
 model: yolo26x-seg.pt # (str, optional) path to model file, i.e. yolov8n.pt or yolov8n.yaml
 data: # (str, optional) path to data file, i.e. coco8.yaml
-epochs: # (int) number of epochs to train for
-time: 24 # (float, optional) max hours to train; overrides epochs if set
+epochs: 200 # (int) number of epochs to train for
+time: 12 # (float, optional) max hours to train; overrides epochs if set
 patience: 40 # (int) early stop after N epochs without val improvement
 batch: 16 # (int | float) batch size as int (e.g. 16), or float 0.0–1.0 for AutoBatch fraction of GPU memory
 imgsz: 1280 # (int | list) train/val use int (square); predict/export may use [h,w]
 save: True # (bool) save train checkpoints and predict results
 save_period: -1 # (int) save checkpoint every N epochs; disabled if < 1
-cache: True # (bool | str) cache images in RAM (True/'ram') or on 'disk' to speed dataloading; False disables
+cache: False # (bool | str) cache images in RAM (True/'ram') or on 'disk' to speed dataloading; False disables
 device: # (int | str | list) device: 0 or [0,1,2,3] for CUDA, 'cpu'/'mps', or -1/[-1,-1] to auto-select idle GPUs
 workers: 8 # (int) dataloader workers (per RANK if DDP)
 project: cvmgr # (str, optional) project name for results root

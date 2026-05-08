@@ -9,6 +9,9 @@ optimize:
   search_alg: "optuna"
 
 train:
-  cuda_visible_devices: "0,1,2,3"
+  cuda_visible_devices: "0,1"
   workers: 8
-  batch: 4
+  batch: 2
+
+sam:
+  cuda_visible_devices: "5"

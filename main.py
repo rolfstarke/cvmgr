@@ -41,6 +41,7 @@ from cvmgr import evaluate_model
 from cvmgr import optimize_hyperp
 from cvmgr import optimize_hyperp_ray
 from cvmgr import fiftyone_import
+from cvmgr import fix_mixed_labels
 
 pipeline_path = pathlib.Path('pipeline.yaml')
 with pipeline_path.open('r') as file:
@@ -79,6 +80,7 @@ try:
 
     if args.train:
         for dataset in pipeline_yaml.get("datasets_to_train", []):
+            fix_mixed_labels(dataset_name=dataset)
             train_yolo_model(dataset_name=dataset)
 
     if args.evaluate:

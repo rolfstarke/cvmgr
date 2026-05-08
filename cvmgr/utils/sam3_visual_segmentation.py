@@ -46,7 +46,5 @@ def sam3_visual_segmentation(dataset: fiftyone.core.dataset.Dataset = None, reca
         fiftyone.ViewField("mask").is_null()
     )
     logger.info(f"Remaining samples without masks: {len(samples_without_masks)}")
-    
-    mask_to_polyline(dataset_name=dataset.name, mask_field="ground_truth")
 
     return dataset

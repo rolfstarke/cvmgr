@@ -15,5 +15,6 @@ from .utils.evaluate_model import evaluate_model
 from .utils.test import test, test2, test3
 from .utils.optimize_hyperp import optimize_hyperp
 from .utils.optimize_hyperp_ray import optimize_hyperp_ray
+from .utils.dataset_integrity_check import fix_mixed_labels
         
 # maybe fiftyone_download doesnt need to be imported here bc its imported in fetch_dataset.py
