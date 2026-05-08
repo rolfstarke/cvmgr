@@ -19,8 +19,14 @@ with resources_path.open('r') as file:
 import os
 
 def optimize_hyperp_ray(dataset_name: str):
-    os.environ["CUDA_VISIBLE_DEVICES"] = resources_yaml["optimize"]["cuda_visible_devices"]
     cfg = resources_yaml["optimize"]
+    visible_devices = [d.strip() for d in str(cfg["cuda_visible_devices"]).split(",") if d.strip()]
+    if not visible_devices:
+        raise ValueError("optimize.cuda_visible_devices is empty")
+    os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(visible_devices)
+    requested_gpu_per_trial = max(int(cfg.get("gpu_per_trial", 1)), 1)
+    gpu_per_trial = min(requested_gpu_per_trial, len(visible_devices))
+    logger.info(f"Ray tune visible GPUs: {visible_devices} | gpu_per_trial={gpu_per_trial}")
 
     model = ultralytics.YOLO(cfg["model"])
 
@@ -37,7 +43,7 @@ def optimize_hyperp_ray(dataset_name: str):
         workers=cfg["workers"],
         search_alg=cfg["search_alg"],
         use_ray=True,
-        gpu_per_trial=cfg["gpu_per_trial"],
+        gpu_per_trial=gpu_per_trial,
         iterations=cfg["iterations"],
     )
 

@@ -1,12 +1,13 @@
 optimize:
-  cuda_visible_devices: "0,1"
+  cuda_visible_devices: "2,3"
   model: "yolo26x-seg.pt"
   epochs: 1
   batch: 8
   workers: 8
-  gpu_per_trial: 1
+  gpu_per_trial: 2
   iterations: 3
   search_alg: "optuna"
+
 
 train:
   cuda_visible_devices: "0,1"
