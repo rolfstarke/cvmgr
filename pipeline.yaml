@@ -7,7 +7,6 @@ datasets_to_download:
 #  - oi_v7_custom_13
 
 
-#  - mark_lane_leuthener_custom_21_hd
 #  - oi_v7_custom_null
 
 #  - exitlight
@@ -17,13 +16,17 @@ datasets_to_download:
 #  - elevator
 #  - duct
 #  - boiler
-
+# - powersocket_sam3
+#  - mark_lane_leuthener_custom_21_lowres
+#  - heater
+# - toilet
+  - oi_v7_custom_negative
+#  - mark_lane_leuthener_custom_21_fullhd  
 
 datasets_to_train:
 #  - exitlight
-  - oi_v7_custom_clean
-
-
+#  - oi_v7_custom_clean
+# - powersocket
 
 datasets_to_merge:
   - mock_data_1
@@ -33,20 +36,27 @@ datasets_to_merge:
 datasets_to_segment:
 #  - mark_lane_leuthener_custom_21
 #  - mark_lane_leuthener_custom_21_fullhd
-  - oi_v7_custom_clean
+#  - powersocket_test
+  - oi_v7_custom_negative
 
 
 models_to_optimize:
-  - exitlight
-  - ceilinglight
-  - windowframe
-  - airvent
-  - elevator
-  - duct
-  - boiler
-  
+ # - exitlight
+ # - ceilinglight
+ # - windowframe
+ # - airvent
+ # - elevator
+ # - duct
+#  - boiler
+#  - heater
+#  - toilet
+#  - exitlight
+#  - ceilinglight
+#  -  mark_lane_leuthener_custom_21_fullhd  
+
+
 models_to_evaluate:
-  - exitlight_relabeled
+  - train-29
 
 blacklog:
   - training_config_x
@@ -72,3 +82,5 @@ blacklog:
   - training_config_x_1280_autoaugment
   - training_config_x_1280_augmix
 
+datasets_to_upload:
+  - mark_lane_leuthener_custom_21_fullhd

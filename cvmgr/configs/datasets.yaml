@@ -7,6 +7,62 @@
 #   part2:
 #     ...
 
+heater:
+  samples_per_split: 1000
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "segmentations"
+  download_splits: ["train", "validation", "test"]
+  download_classes: [
+    "Heater"
+  ]
+  export_splits: ["train", "val", "test"]   
+  export_classes: [
+    "Heater"
+  ]
+
+toilet:
+  samples_per_split: 1000
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "segmentations"
+  download_splits: ["train", "validation", "test"]
+  download_classes: [
+    "Toilet"
+  ]
+  export_splits: ["train", "val", "test"]   
+  export_classes: [
+    "Toilet"
+  ]
+
+powersocket:
+  host: roboflow
+  format: yolov12
+  type: "detections"
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "powersocket"
+  workspace: "made-srcnb"
+  version: 1
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Socket"
+  ]
+
+powersocket_sam3:
+  host: roboflow
+  format: yolov12
+  type: "detections"
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "powersocket"
+  workspace: "made-srcnb"
+  version: 1
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Socket"
+  ]
+
 exitlight:
   host: roboflow
   format: yolov12
@@ -14,7 +70,7 @@ exitlight:
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   project: "exit_lights_relabeled"
   workspace: "made-srcnb"
-  version: 1
+  version: 2
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]  
   export_classes: [
@@ -42,7 +98,7 @@ ceilinglight:
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   project: "light_detect_3"
   workspace: "tree-detection-zocbs"
-  version: 3
+  version: 4
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]     
   export_classes: [
@@ -112,7 +168,7 @@ boiler:
   project: "boiler-syvqj"
   workspace: "made-srcnb"
   version: 2
-  type: "polylines"
+  type: "detections"
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]
   export_classes: [
@@ -120,17 +176,39 @@ boiler:
   ]
 
 mark_lane_leuthener_custom_21_lowres:
-  samples_per_split: 3
   type: "detections"
   host: roboflow
-  format: yolov5
+  format: yolov12
   # formats include: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytorch, yolov4scaled, yolov5-obb, yolov5pytorch, yolov7pytorch, yolov8, yolov8-obb, yolov9, yolov11, yolov12, mt-yolov6, retinanet, benchmarker, paligemma, paligemma-txt, florence2-od, openai
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   workspace: "made-srcnb"
   project: "isarc2"
-  version: 4
+  version: 9
   download_splits: ["train", "valid", "test"]
   export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Desk chair",
+    "Conference chair",
+    "Desk",
+    "Filing cabinet",
+    "Heater",
+    "Boiler",
+    "Air flow grill",
+    "Elevator",
+    "Ductwork",
+    "Ceiling light",
+    "Wall lights",
+    "Emergency exit sign",
+    "Mirror",
+    "Toilet",
+    "Sink",
+    "Faucet",
+    "Raised access flooring",
+    "Door",
+    "Window frame",
+    "Glas internal",
+    "Glas external"
+  ]
 
 mark_lane_leuthener_custom_21:
   #samples_per_split:
@@ -234,6 +312,54 @@ mark_lane_leuthener_custom_21_hd:
     "Glas internal",
     "Glas external"
   ]
+
+oi_v7_custom_2:
+  host: fiftyone_zoo
+  origin: open-images-v7
+  type: ["detections","segmentations"]  
+  download_splits: ["train", "validation", "test"]  
+  export_splits: ["train", "val", "test"]                 
+  export_classes: ["Heater", 
+         "window", 
+         "door",
+  ]
+
+oi_v7_custom_negative:
+  # Hard negatives for mark_lane_leuthener_21: indoor commercial/office/building scenes
+  # Classes chosen to (a) appear in the same environments and (b) be visually close to
+  # mark_lane targets without being the targets themselves.
+  samples_per_class: 500
+  host: fiftyone_zoo
+  origin: open-images-v7
+  download_type: "detections"
+  download_splits: ["train", "validation", "test"]
+  download_classes:
+    - "Couch"          # Desk chair
+    - "Table"          # Desk
+    - "Couch"          # Conference chair
+    - "Cabinetry"      # Filing cabinet
+    - "Fireplace"      # Heater
+    - "Refrigerator"   # Boiler
+    - "Ceiling fan"    # Air flow grill
+    - "Escalator"      # Elevator
+    - "Shelf"          # Ductwork
+    - "Light bulb"     # Ceiling light
+    - "Lamp"           # Wall lights
+    - "Clock"          # Emergency exit sign
+    - "Picture frame"  # Mirror
+    - "Bidet"          # Toilet
+    - "Bathtub"        # Sink
+    - "Shower"         # Faucet
+    - "Countertop"     # Raised access flooring
+    - "Picture frame"  # Door
+    - "Whiteboard"     # Window frame
+    - "Curtain"        # Glas internal
+    - "Window blind"   # Glas external
+  export_splits: ["train"]
+  export_classes:
+
+  hard_negatives:
+
 
 oi_v7_complete:
   #samples_per_split: null  # or remove line entirely 
@@ -362,7 +488,7 @@ oi_v7_custom_54:
   origin: open-images-v7
   download_type: "detections"
   download_splits: ["train", "validation", "test"]
-  download_classes: &classes4
+  download_classes:
     - "Cabinetry"
     - "Bidet"
     - "Desk"
@@ -418,7 +544,7 @@ oi_v7_custom_54:
     - "Bathroom accessory"
     - "Kitchen appliance"
   export_splits: ["train", "val", "test"]   
-  export_classes: *classes4
+  export_classes: 
   export_type: 
 
 oi_v7_custom_1:

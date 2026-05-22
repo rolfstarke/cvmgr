@@ -1,0 +1,141 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            xhd29vsh29m882muabesma2vqk8homa8:
+                args:
+                    - --optimize
+                codePath: main.py
+                codePathLocal: main.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "207818493952"
+                        used: "117687099392"
+                email: starke@b-tu.de
+                executable: /home/rolf/anaconda3/envs/cvmgr/bin/python
+                git:
+                    commit: 6b9d95f8e500df3ea82b1c4e6b24b5085cf0d350
+                    remote: https://github.com/rolfstarke/cvmgr.git
+                gpu: NVIDIA RTX A4000
+                gpu_count: 5
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-a953b6be-4f1c-6e17-37f2-314c5185e2df
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-9323c0ec-5d7e-2d7d-352d-772492fa96e9
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-2aae169b-ecb8-ac84-90ad-19ccffecae32
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-4f5c9e64-ae39-b646-328c-29f65686286f
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-7de1de81-6635-42a0-ab53-92f20494e79b
+                host: lnx-1.bauwesen.local
+                memory:
+                    total: "475512524800"
+                os: Linux-6.8.0-88-generic-x86_64-with-glibc2.39
+                program: /home/rolf/GIT/cvmgr/main.py
+                python: CPython 3.10.20
+                root: /home/rolf/GIT/cvmgr
+                startedAt: "2026-05-08T21:57:17.509659Z"
+                writerId: xhd29vsh29m882muabesma2vqk8homa8
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 5
+                - 30
+                - 35
+                - 41
+                - 49
+                - 53
+            "2":
+                - 1
+                - 5
+                - 30
+                - 35
+                - 41
+                - 49
+                - 53
+            "3":
+                - 2
+                - 13
+                - 15
+                - 16
+                - 62
+            "4": 3.10.20
+            "5": 0.26.1
+            "12": 0.26.1
+            "13": linux-x86_64
+bgr:
+    value: 0.4233422747587302
+box:
+    value: 7.146987233000649
+close_mosaic:
+    value: 9
+cls:
+    value: 3.5768416855437675
+cls_pw:
+    value: 0.7537870796826139
+copy_paste:
+    value: 0.6858323082767381
+cutmix:
+    value: 0.291961377828583
+degrees:
+    value: 17.34715468114744
+dfl:
+    value: 2.0957213385103923
+fliplr:
+    value: 0.6425185801404997
+flipud:
+    value: 0.9811356012129494
+hsv_h:
+    value: 0.021466838948130375
+hsv_s:
+    value: 0.48389193563421734
+hsv_v:
+    value: 0.7892289580347965
+lr0:
+    value: 0.009342189748943524
+lrf:
+    value: 0.6912653897268725
+mAP50-95_M:
+    value: 0.00057
+mixup:
+    value: 0.6723890514437679
+momentum:
+    value: 0.9566943394941554
+mosaic:
+    value: 0.5646573113446701
+perspective:
+    value: 0.0006759893265882292
+scale:
+    value: 0.001013250364676832
+shear:
+    value: 2.4403030228881595
+translate:
+    value: 0.835330548591748
+warmup_epochs:
+    value: 3.5132047361373973
+warmup_momentum:
+    value: 0.6565443122307262
+weight_decay:
+    value: 0.0005299214801202982

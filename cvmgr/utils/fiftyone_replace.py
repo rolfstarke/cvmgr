@@ -1,7 +1,7 @@
 import fiftyone
-import logging
-logger = logging.getLogger('cvmgr')
+from .logging_check import util_log
 
+@util_log("fiftyone_replace", success_text=lambda result, args, kwargs: "dataset_absent OR deleted")
 def fiftyone_replace(dataset_name: str, replace: bool = False): 
     try:
         dataset_exists = fiftyone.dataset_exists(dataset_name)
@@ -12,11 +12,8 @@ def fiftyone_replace(dataset_name: str, replace: bool = False):
                 fiftyone.delete_dataset(dataset_name)
 
             else:
-                logger.info(f"Dataset {dataset_name} already exists. Skipping download/import.")
                 return False
     except Exception as e:
-     
-        logger.error(f"Error checking/deleting dataset {dataset_name}: {e}")
         return False
         
     return True

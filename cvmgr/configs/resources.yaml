@@ -1,18 +1,18 @@
 optimize:
-  cuda_visible_devices: "2,3"
-  model: "yolo26x-seg.pt"
-  epochs: 1
-  batch: 8
+  cuda_visible_devices: "1"
+  model: yolo26n-seg.pt
+  epochs: 80
+  batch: -1
   workers: 8
-  gpu_per_trial: 2
-  iterations: 3
+  gpu_per_trial: 1
+  iterations: 150
   search_alg: "optuna"
 
 
 train:
-  cuda_visible_devices: "0,1"
+  cuda_visible_devices: "1"
   workers: 8
-  batch: 2
+  batch: -1
 
 sam:
-  cuda_visible_devices: "5"
+  cuda_visible_devices: "0"

@@ -1,9 +1,8 @@
 import pathlib
-import logging
-
-logger = logging.getLogger('cvmgr')
+from .logging_check import util_log
 
 
+@util_log("fix_mixed_labels", success_text=lambda result, args, kwargs: "labels_dir_exists AND processed")
 def fix_mixed_labels(dataset_name: str) -> int:
     """
      Scan all YOLO label files for a dataset and:
@@ -18,8 +17,7 @@ def fix_mixed_labels(dataset_name: str) -> int:
     """
     labels_root = pathlib.Path.cwd() / "datasets" / dataset_name / "labels"
     if not labels_root.exists():
-        logger.warning(f"fix_mixed_labels: labels dir not found: {labels_root}")
-        return 0
+        return False
 
     total_fixed = 0
     total_duplicates = 0
@@ -62,24 +60,4 @@ def fix_mixed_labels(dataset_name: str) -> int:
             total_fixed += file_fixed
             total_duplicates += file_duplicates
 
-    if total_fixed:
-        logger.info(
-            f"fix_mixed_labels: converted {total_fixed} "
-            f"detection-only lines to segments in '{dataset_name}'"
-        )
-    else:
-        logger.info(
-            f"fix_mixed_labels: no mixed lines found in '{dataset_name}'"
-        )
-
-    if total_duplicates:
-        logger.info(
-            f"fix_mixed_labels: removed {total_duplicates} "
-            f"duplicate label lines in '{dataset_name}'"
-        )
-    else:
-        logger.info(
-            f"fix_mixed_labels: no duplicate label lines found in '{dataset_name}'"
-        )
-
-    return total_fixed
+    return {"fixed": total_fixed, "duplicates": total_duplicates}

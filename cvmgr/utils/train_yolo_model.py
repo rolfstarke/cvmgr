@@ -1,7 +1,5 @@
 from ultralytics import YOLO
 import pathlib
-import logging
-logger = logging.getLogger('cvmgr')
 import yaml
 import torch
 import time
@@ -9,6 +7,7 @@ import gc
 import os
 import wandb
 from ultralytics import settings
+from .logging_check import util_log
 
 secrets_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "secrets.yaml"
 resources_path = pathlib.Path.cwd() / "cvmgr" / "configs" / "resources.yaml"
@@ -17,6 +16,7 @@ with secrets_path.open('r') as file:
 with resources_path.open('r') as file:
     resources = yaml.safe_load(file)
 
+@util_log("train_yolo_model", success_text=lambda result, args, kwargs: "train_results AND cache_reset")
 def train_yolo_model(dataset_name: str):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = resources["train"]["cuda_visible_devices"]
@@ -24,15 +24,12 @@ def train_yolo_model(dataset_name: str):
     settings.update({"wandb": True})
     wandb.login(key=secrets_yaml["wandb"]["api_key"])
 
-    logger.info(f"GPU memory before training {dataset_name}: {torch.cuda.memory_allocated()/1024**3:.2f}GB")
-
     configs_dir = pathlib.Path.cwd() / "cvmgr" / "configs" / "training"
     existing = sorted(
         configs_dir.glob(f"{dataset_name}_*.yaml"),
         key=lambda p: float(p.stem.rsplit("_", 1)[-1].replace("-", ".")),
     )
     resolved_cfg = existing[-1] if existing else configs_dir / "default.yaml"
-    logger.info(f"Using YOLO cfg: {resolved_cfg}")
 
     with resolved_cfg.open("r") as f:
         cfg_yaml = yaml.safe_load(f)
@@ -40,16 +37,19 @@ def train_yolo_model(dataset_name: str):
 
     start = time.time()
     train_resources = resources["train"]
+    device = train_resources.get("device", train_resources["cuda_visible_devices"])
     results = model.train(
         cfg=str(resolved_cfg),
         data=str(pathlib.Path.cwd() / "datasets" / dataset_name / "dataset.yaml"),
         workers=train_resources["workers"],
         batch=train_resources["batch"],
+        device=device,
+        name=dataset_name,
     )
 
     elapsed = time.time() - start
-    hours, minutes = int(elapsed // 3600), int((elapsed % 3600) // 60)
-    logger.info(f"training completed on: {dataset_name} | Time: {hours}h {minutes}m")
+    if results is None or elapsed < 0:
+        return False
 
     del model
     gc.collect()
@@ -57,3 +57,4 @@ def train_yolo_model(dataset_name: str):
     torch.cuda.synchronize()
     torch.cuda.reset_peak_memory_stats()
     torch.cuda.reset_accumulated_memory_stats()
+    return True

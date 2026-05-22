@@ -2,14 +2,13 @@ import pathlib
 import fiftyone
 import roboflow
 import shutil
-import subprocess
 import os
 import yaml
-import logging
-logger = logging.getLogger('cvmgr')
 from .fiftyone_replace import fiftyone_replace
 from .fiftyone_import import fiftyone_import
+from .logging_check import util_log
 
+@util_log("roboflow_download", success_text=lambda result, args, kwargs: "yaml_rewritten AND imported")
 def roboflow_download(dataset_name: str, config: dict):
 
 
@@ -32,8 +31,6 @@ def roboflow_download(dataset_name: str, config: dict):
         old_split_dir = pathlib.Path(dataset.location) / split
     
         if old_split_dir.exists():
-            print(f"Processing {split} split...")
-            
             # Move images
             old_images = old_split_dir / "images"
             new_images = images_dir / split
@@ -42,9 +39,6 @@ def roboflow_download(dataset_name: str, config: dict):
                 if new_images.exists():
                     shutil.rmtree(new_images)
                 shutil.move(str(old_images), str(new_images))
-                print(f"  Moved images: {old_images} -> {new_images}")
-            else:
-                print(f"  No images found in {old_images}")
         
             # Move labels
             old_labels = old_split_dir / "labels"
@@ -54,11 +48,6 @@ def roboflow_download(dataset_name: str, config: dict):
                 if new_labels.exists():
                     shutil.rmtree(new_labels)
                 shutil.move(str(old_labels), str(new_labels))
-                print(f"  Moved labels: {old_labels} -> {new_labels}")
-            else:
-                print(f"  No labels found in {old_labels}")
-        else:
-            print(f"Split {split} not found, skipping...")
     
     # Update YAML file - read from original, save as new file
     original_yaml_path = pathlib.Path(dataset.location) / "data.yaml"  # Original file
@@ -79,19 +68,9 @@ def roboflow_download(dataset_name: str, config: dict):
         with open(new_yaml_path, 'w') as f:
             yaml.dump(data, f, default_flow_style=False)
 
-    # Replace those print statements with:
-    size_mb = sum(f.stat().st_size for f in download_path.rglob('*')) / (1024*1024)
-    permissions = "RWX" if all([
-        os.access(download_path, os.R_OK),
-        os.access(download_path, os.W_OK), 
-        os.access(download_path, os.X_OK)
-    ]) else "Limited"
-
-    logger.info(f"Dataset converted: {size_mb:.1f}MB, {permissions} permissions, files moved to {download_path}")
-
     shutil.rmtree(pathlib.Path(dataset.location))
 
-    fiftyone_import(dataset_name, config)
+    return bool(fiftyone_import(dataset_name, config))
 
 
 

@@ -1,9 +1,13 @@
 import os
 from pathlib import Path
+from .logging_check import util_log
 
+@util_log("find_inconsistent_labels", success_check=lambda result, args, kwargs: result is not False, success_text=lambda result, args, kwargs: "labels_scanned")
 def find_inconsistent_labels(dataset_path):
     """Find YOLO label files that have boxes but no/incomplete segments"""
     labels_dir = Path(dataset_path) / "labels"
+    if not labels_dir.exists():
+        return False
     
     inconsistent_files = []
     consistent_files = []
@@ -12,8 +16,6 @@ def find_inconsistent_labels(dataset_path):
         split_dir = labels_dir / split
         if not split_dir.exists():
             continue
-            
-        print(f"\nChecking {split} split...")
         
         for label_file in split_dir.glob("*.txt"):
             with open(label_file, 'r') as f:
@@ -48,6 +50,7 @@ def find_inconsistent_labels(dataset_path):
     
     return inconsistent_files, consistent_files
 
+@util_log("remove_inconsistent_files", success_text=lambda result, args, kwargs: "removed_pairs")
 def remove_inconsistent_files(inconsistent_files, dataset_path):
     """Remove images and labels that have inconsistent annotations"""
     images_dir = Path(dataset_path) / "images"
@@ -65,40 +68,11 @@ def remove_inconsistent_files(inconsistent_files, dataset_path):
         for ext in ['.jpg', '.jpeg', '.png', '.bmp']:
             image_path = images_dir / split / f"{image_name}{ext}"
             if image_path.exists():
-                print(f"Removing: {image_path}")
                 image_path.unlink()
                 break
         
         # Remove label file
-        print(f"Removing: {label_path}")
         label_path.unlink()
         removed_count += 1
     
     return removed_count
-
-if __name__ == "__main__":
-    dataset_path = '/home/rolf/GIT/cvmgr/datasets/sink'
-    
-    # Find inconsistent files
-    inconsistent_files, consistent_files = find_inconsistent_labels(dataset_path)
-    
-    print(f"\n=== RESULTS ===")
-    print(f"Consistent files: {len(consistent_files)}")
-    print(f"Inconsistent files: {len(inconsistent_files)}")
-    
-    if inconsistent_files:
-        print(f"\nInconsistent files (boxes ≠ segments):")
-        for file_info in inconsistent_files:
-            print(f"  {file_info['file']}")
-            print(f"    Boxes: {file_info['boxes']}, Segments: {file_info['segments']}")
-        
-        # Ask if user wants to remove them
-        response = input(f"\nRemove {len(inconsistent_files)} inconsistent files? (y/n): ")
-        if response.lower() == 'y':
-            removed_count = remove_inconsistent_files(inconsistent_files, dataset_path)
-            print(f"Removed {removed_count} inconsistent file pairs")
-            print("Dataset is now consistent for segmentation training!")
-        else:
-            print("Files kept. You'll need to fix the annotations manually or use detection training instead.")
-    else:
-        print("All files are consistent! ✅")
