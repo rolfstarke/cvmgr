@@ -56,7 +56,6 @@ from cvmgr import optimize_hyperp_ray
 from cvmgr import fiftyone_import
 from cvmgr import fix_mixed_labels
 from cvmgr import add_negatives
-from cvmgr import add_testsplit
 from cvmgr import fiftyone_upload_roboflow
 from cvmgr import fiftyone_reimport_yolo_dataset
 
@@ -88,7 +87,6 @@ try:
             
             add_negatives(dataset_name=dataset)
             redistribute_splits(dataset_name=dataset)
-            add_testsplit(dataset_name=dataset)
             export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
             fiftyone_reimport_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset))
 
@@ -134,7 +132,7 @@ try:
                     "--dataset_name", dataset,
                     "--config", json.dumps(dataset_cfgs_yaml.get(dataset)),
                     "--replace",
-                    "--label_field", "ground_truth"
+                    "--label_field", "sam3_predictions"
                 ],
                 cwd="/home/rolf/GIT/sam3",
             )
