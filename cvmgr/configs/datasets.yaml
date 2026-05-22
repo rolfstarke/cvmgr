@@ -253,7 +253,8 @@ mark_lane_leuthener_custom_21_fullhd:
   workspace: "made-srcnb"
   project: "isarc2"
   version: 6
-  download_splits: ["train", "valid", "test"]
+  download_splits: ["train"]
+  export_splits: ["train"]
   classes: [
     "Desk chair",
     "Conference chair",
@@ -357,7 +358,28 @@ oi_v7_custom_negative:
     - "Window blind"   # Glas external
   export_splits: ["train"]
   export_classes:
-
+    # export classes here are just used for sam3 segmentation
+    - "Desk chair"
+    - "Conference chair"
+    - "Desk"
+    - "Filing cabinet"
+    - "Heater"
+    - "Boiler"
+    - "Air flow grill"
+    - "Elevator"
+    - "Ductwork"
+    - "Ceiling light"
+    - "Wall lights"
+    - "Emergency exit sign"
+    - "Mirror"
+    - "Toilet"
+    - "Sink"
+    - "Faucet"
+    - "Raised access flooring"
+    - "Door"
+    - "Window frame"
+    - "Glas internal"
+    - "Glas external"
   hard_negatives:
 
 

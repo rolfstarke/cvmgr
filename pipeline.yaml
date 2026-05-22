@@ -20,8 +20,8 @@ datasets_to_download:
 #  - mark_lane_leuthener_custom_21_lowres
 #  - heater
 # - toilet
-  - oi_v7_custom_negative
-#  - mark_lane_leuthener_custom_21_fullhd  
+#  - oi_v7_custom_negative
+  - mark_lane_leuthener_custom_21_fullhd  
 
 datasets_to_train:
 #  - exitlight

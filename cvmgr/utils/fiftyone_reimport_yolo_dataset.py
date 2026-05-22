@@ -37,6 +37,9 @@ def fiftyone_reimport_yolo_dataset(dataset_name: str, config: dict):
     fiftyone.delete_dataset(tmp_name)
 
     for sample in dataset.iter_samples(autosave=True):
-        sample["ground_truth_yolo"] = by_name.get(pathlib.Path(sample.filepath).name)
+        sample["ground_truth_yolo"] = by_name.get(
+            pathlib.Path(sample.filepath).name,
+            fiftyone.Detections(detections=[]),
+        )
 
     return "ground_truth_yolo" in dataset.get_field_schema()

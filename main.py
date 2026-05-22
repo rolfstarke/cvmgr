@@ -1,6 +1,5 @@
 import os
 import signal
-from venv import logger
 # os.environ["TOKENIZERS_PARALLELISM"] = "false" 
 # this needs to be importet before the utils
 import pathlib
@@ -18,17 +17,9 @@ def _kill_tree(*_):
 signal.signal(signal.SIGINT, _kill_tree)
 signal.signal(signal.SIGTERM, _kill_tree)
 
-pathlib.Path("logs").mkdir(exist_ok=True)
-logging.basicConfig(
-    filename='logs/full.log', 
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
-app_logger = logging.getLogger('cvmgr')
-app_handler = logging.FileHandler('logs/selective.log')
-app_handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s', '%Y-%m-%d %H:%M:%S'))
-app_logger.addHandler(app_handler)
+from cvmgr.utils.logging_check import configure_cvmgr_logging
+
+configure_cvmgr_logging()
 logging.getLogger("fiftyone").setLevel(logging.ERROR)
 logging.getLogger("torch").setLevel(logging.ERROR)
 logging.getLogger("ultralytics").setLevel(logging.ERROR)
@@ -83,12 +74,12 @@ args = parser.parse_args()
 try:
     if args.download:
         for dataset in pipeline_yaml.get("datasets_to_download", []):
-            fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
-            
-            add_negatives(dataset_name=dataset)
-            redistribute_splits(dataset_name=dataset)
+            #fetch_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
+            #add_negatives(dataset_name=dataset)
+            #redistribute_splits(dataset_name=dataset)
             export_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset), replace=True)
             fiftyone_reimport_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset))
+            fiftyone_upload_roboflow(dataset_name=dataset)
 
     if args.merge:
         for dataset in pipeline_yaml.get("datasets_to_merge", []):
