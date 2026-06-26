@@ -16,4 +16,5 @@ train:
   patience: 200
   model: yolo26x-seg.pt
 
-sam: {}
+sam:
+  sam3_query_batch_size: 1
