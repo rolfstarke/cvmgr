@@ -1,17 +1,147 @@
-# the dataset names must match fiftyone
-# structure for multipart datasets must match this formatting:
-# dataset_name:
-#   multipart: true
-#   part1:
-#     ...
-#   part2:
-#     ...
+# dataset names must match fiftyone — schema:
+#   host:              "fiftyone_zoo" or "roboflow"  → fetch_dataset
+#   origin:            zoo dataset name              → fiftyone_download
+#   type:     label type                    → fiftyone_download
+#   download_splits:   splits to fetch               → fiftyone_download, roboflow_download
+#   download_classes:  classes to fetch / DMS detection label → fiftyone_download, apple_dms_download
+#   samples_per_class: per-class cap                 → fiftyone_download
+#   samples_per_split: per-split cap                 → fiftyone_download
+#   export_splits:     splits to export              → export_yolo
+#   export_classes:    class list for export         → export_yolo
+#   api_key/workspace/project/version/format:        → roboflow_download (roboflow only)
+#   dms_class_id:      material class ID              → apple_dms_download (apple_dms only)
+
+
+
+boiler:
+  host: roboflow
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "boiler-syvqj"
+  workspace: "made-srcnb"
+  version: 2
+  type: "detections"
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Boiler"
+  ]
+
+carpet:
+  host: apple_dms
+  dms_class_id: 5
+  download_classes: "Carpet"
+  download_splits: ["train", "validation", "test"]
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Carpet"]
+
+ceilinglight:
+  host: roboflow
+  type: "detections"
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "light_detect_3"
+  workspace: "tree-detection-zocbs"
+  version: 4
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]     
+  export_classes: [
+    "Ceiling light"
+  ]          
+
+desk:
+  host: roboflow
+  type: "detections"
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "office-desk-qtvub"
+  workspace: "btu-5oo8g"
+  version: 2
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]     
+  export_classes: [
+    "Desk"
+  ]   
+
+deskchair:
+  host: roboflow
+  type: "detections"
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "meeting-room-spb9s-8eeo0"
+  workspace: "btu-5oo8g"
+  version: 1
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]     
+  export_classes: [
+    "Desk chair"
+  ]
+
+door:
+  samples_per_split: 2000
+  host: fiftyone_zoo
+  origin: open-images-v7
+  type: "detections"
+  download_splits: ["train"]
+  download_classes: ["Door"]
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Door"]
+
+elevator:
+  host: roboflow
+  format: yolov12
+  type: "polylines"
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "elevator-status-o09nl"
+  workspace: "made-srcnb"
+  version: 3
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Elevator",
+  ]
+
+exitlight:
+  host: roboflow
+  format: yolov12
+  type: "polylines"
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "exit_lights_relabeled"
+  workspace: "made-srcnb"
+  version: 3
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]  
+  export_classes: [
+    "Emergency exit sign"
+  ]
+
+faucet:
+  samples_per_class: 3000
+  host: fiftyone_zoo
+  origin: open-images-v7
+  type: "segmentations"
+  download_splits: ["train"]
+  download_classes: ["Tap"]
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Faucet"]
+  label_map:
+    Tap: Faucet
+
+filing_cabinet:
+  samples_per_class: 3000
+  host: fiftyone_zoo
+  origin: open-images-v7
+  type: "segmentations"
+  download_splits: ["train"]
+  download_classes: ["Filing cabinet"]
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Filing cabinet"]
 
 heater:
   samples_per_split: 1000
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "segmentations"
+  type: "segmentations"
   download_splits: ["train", "validation", "test"]
   download_classes: [
     "Heater"
@@ -21,11 +151,59 @@ heater:
     "Heater"
   ]
 
+glass:
+  host: apple_dms
+  dms_class_id: 20
+  download_classes: "Glass"
+  download_splits: ["train", "validation", "test"]
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Glass external"]
+  label_map:
+    Glass: "Glass external"
+
+radiator:
+  host: lvis
+  type: "segmentations"
+  download_splits: ["train", "validation"]
+  download_classes: ["Radiator"]
+  #samples_per_class: 
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Radiator"]
+
+mirror:
+  host: lvis
+  type: "segmentations"
+  download_splits: ["train", "validation"]
+  download_classes: ["Mirror"]
+  #samples_per_class:
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Mirror"]
+
+sink:
+  host: lvis
+  type: "segmentations"
+  download_splits: ["train", "validation"]
+  download_classes: ["Sink"]
+  #samples_per_class:
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Sink"]
+
+airvent:
+  host: lvis
+  type: "segmentations"
+  download_splits: ["train", "validation"]
+  download_classes: ["vent"]
+  #samples_per_class:
+  export_splits: ["train", "val", "test"]
+  export_classes: ["Vent"]
+  label_map:
+    "vent": "Vent"
+
 toilet:
   samples_per_split: 1000
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "segmentations"
+  type: "segmentations"
   download_splits: ["train", "validation", "test"]
   download_classes: [
     "Toilet"
@@ -34,6 +212,22 @@ toilet:
   export_classes: [
     "Toilet"
   ]
+
+
+airvent_old:
+  host: roboflow
+  type: "polylines"  
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "fareastern-yqyri-nw705"
+  workspace: "btu-5oo8g"
+  version: 1
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]
+  export_classes: [
+    "Vent"
+  ]          
+
 
 powersocket:
   host: roboflow
@@ -63,255 +257,161 @@ powersocket_sam3:
     "Socket"
   ]
 
-exitlight:
-  host: roboflow
-  format: yolov12
-  type: "polylines"
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "exit_lights_relabeled"
-  workspace: "made-srcnb"
-  version: 2
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]  
-  export_classes: [
-    "Emergency exit sign"
-  ]
 
-exitlight_old:
-  host: roboflow
-  format: yolov12
-  type: "detections"
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "exit-lights-s6bot"
-  workspace: "made-srcnb"
-  version: 5
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]  
-  export_classes: [
-    "Emergency exit sign"
-  ]
-
-ceilinglight:
-  host: roboflow
-  type: "detections"
-  format: yolov12
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "light_detect_3"
-  workspace: "tree-detection-zocbs"
-  version: 4
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]     
-  export_classes: [
-    "Ceiling light"
-  ]          
-
-duct:
-  host: roboflow
-  type: "polylines"
-  format: yolov12
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "ecw_14_detection-2-7jehm"
-  workspace: "made-srcnb"
-  version: 2
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]    
-  export_classes: [
-    "Duct"
-  ] 
-
-elevator:
-  host: roboflow
-  format: yolov12
-  type: "polylines"
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "elevator-status-o09nl"
-  workspace: "made-srcnb"
-  version: 3
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
-  export_classes: [
-    "Elevator",
-  ]
-
-airvent:
-  host: roboflow
-  type: "polylines"  
-  format: yolov12
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "air-vent-hole-v2-jyymj"
-  workspace: "made-srcnb"
-  version: 2
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
-  export_classes: [
-    "Vent"
-  ]
-
-windowframe:
-  host: roboflow
-  type: "polylines"
-  format: yolov12
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "windowframe-ekvou"
-  workspace: "made-srcnb"
-  version: 2
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
-  export_classes: [
-    "Window frame",
-  ]
-
-boiler:
-  host: roboflow
-  format: yolov12
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  project: "boiler-syvqj"
-  workspace: "made-srcnb"
-  version: 2
-  type: "detections"
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
-  export_classes: [
-    "Boiler"
-  ]
-
-mark_lane_leuthener_custom_21_lowres:
-  type: "detections"
-  host: roboflow
-  format: yolov12
-  # formats include: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytorch, yolov4scaled, yolov5-obb, yolov5pytorch, yolov7pytorch, yolov8, yolov8-obb, yolov9, yolov11, yolov12, mt-yolov6, retinanet, benchmarker, paligemma, paligemma-txt, florence2-od, openai
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  workspace: "made-srcnb"
-  project: "isarc2"
-  version: 9
-  download_splits: ["train", "valid", "test"]
-  export_splits: ["train", "valid", "test"]
-  export_classes: [
-    "Desk chair",
-    "Conference chair",
-    "Desk",
-    "Filing cabinet",
-    "Heater",
-    "Boiler",
-    "Air flow grill",
-    "Elevator",
-    "Ductwork",
-    "Ceiling light",
-    "Wall lights",
-    "Emergency exit sign",
-    "Mirror",
-    "Toilet",
-    "Sink",
-    "Faucet",
-    "Raised access flooring",
-    "Door",
-    "Window frame",
-    "Glas internal",
-    "Glas external"
-  ]
-
-mark_lane_leuthener_custom_21:
+mark_lane_leuthener_21_ORIGINAL:
   #samples_per_split:
   type: "detections"
   host: roboflow
   format: yolov5
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   workspace: "made-srcnb"
-  project: "isarc2"
-  version: 5
-  download_splits: ["train", "valid", "test"]
-  classes: [
-    "Desk chair",
-    "Conference chair",
-    "Desk",
-    "Filing cabinet",
-    "Heater",
-    "Boiler",
-    "Air flow grill",
-    "Elevator",
-    "Ductwork",
-    "Ceiling light",
-    "Wall lights",
-    "Emergency exit sign",
-    "Mirror",
-    "Toilet",
-    "Sink",
-    "Faucet",
-    "Raised access flooring",
-    "Door",
-    "Window frame",
-    "Glas internal",
-    "Glas external"
-  ]
-
-mark_lane_leuthener_custom_21_fullhd:
-  #samples_per_split:
-  type: "detections"
-  host: roboflow
-  format: yolov5
-  api_key: "AgfWlgODe2lXi5Nh5VTu"
-  workspace: "made-srcnb"
-  project: "isarc2"
+  project: "isarc3"
   version: 6
   download_splits: ["train"]
   export_splits: ["train"]
-  classes: [
-    "Desk chair",
+  download_classes: [
+    "Boiler",
+    "Carpet",
+    "Ceiling light",
     "Conference chair",
     "Desk",
-    "Filing cabinet",
-    "Heater",
-    "Boiler",
-    "Air flow grill",
-    "Elevator",
-    "Ductwork",
-    "Ceiling light",
-    "Wall lights",
-    "Emergency exit sign",
-    "Mirror",
-    "Toilet",
-    "Sink",
-    "Faucet",
-    "Raised access flooring",
+    "Desk chair",
     "Door",
-    "Window frame",
-    "Glas internal",
-    "Glas external"
+    "Elevator",
+    "Emergency exit sign",
+    "Faucet",
+    "Filing cabinet",
+    "Glass external",
+    "Glass internal",
+    "Heater",
+    "Mirror",
+    "Sink",
+    "Toilet",
+    "Vent",    
+  ]
+  export_classes: [
+    "Boiler",
+    "Carpet",
+    "Ceiling light",
+    "Conference chair",
+    "Desk",
+    "Desk chair",
+    "Door",
+    "Elevator",
+    "Emergency exit sign",
+    "Faucet",
+    "Filing cabinet",
+    "Glass external",
+    "Glass internal",
+    "Heater",
+    "Mirror",
+    "Sink",
+    "Toilet",
+    "Vent",
   ]
 
-
-mark_lane_leuthener_custom_21_hd:
-  #samples_per_split: 2
+mark_lane_leuthener_21_HD:
+  #samples_per_split:
   type: "detections"
   host: roboflow
   format: yolov5
   api_key: "AgfWlgODe2lXi5Nh5VTu"
   workspace: "made-srcnb"
-  project: "isarc2"
-  version: 8
-  download_splits: ["train", "valid", "test"]
-  classes: [
-    "Desk chair",
+  project: "isarc3"
+  version: 4
+  download_splits: ["train"]
+  export_splits: ["train"]
+  download_classes: [
+    "Boiler",
+    "Carpet",
+    "Ceiling light",
     "Conference chair",
     "Desk",
-    "Filing cabinet",
-    "Heater",
-    "Boiler",
-    "Air flow grill",
-    "Elevator",
-    "Ductwork",
-    "Ceiling light",
-    "Wall lights",
-    "Emergency exit sign",
-    "Mirror",
-    "Toilet",
-    "Sink",
-    "Faucet",
-    "Raised access flooring",
+    "Desk chair",
     "Door",
-    "Window frame",
-    "Glas internal",
-    "Glas external"
+    "Elevator",
+    "Emergency exit sign",
+    "Faucet",
+    "Filing cabinet",
+    "Glass external",
+    "Glass internal",
+    "Heater",
+    "Mirror",
+    "Sink",
+    "Toilet",
+    "Vent",    
+  ]
+  export_classes: [
+    "Boiler",
+    "Carpet",
+    "Ceiling light",
+    "Conference chair",
+    "Desk",
+    "Desk chair",
+    "Door",
+    "Elevator",
+    "Emergency exit sign",
+    "Faucet",
+    "Filing cabinet",
+    "Glass external",
+    "Glass internal",
+    "Heater",
+    "Mirror",
+    "Sink",
+    "Toilet",
+    "Vent",
+  ]
+
+mark_lane_leuthener_21_FULLHD:
+  #samples_per_split:
+  type: "detections"
+  host: roboflow
+  format: yolov5
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  workspace: "made-srcnb"
+  project: "isarc3"
+  version: 1
+  download_splits: ["train"]
+  export_splits: ["train"]
+  download_classes: [
+    "Boiler",
+    "Carpet",
+    "Ceiling light",
+    "Conference chair",
+    "Desk",
+    "Desk chair",
+    "Door",
+    "Elevator",
+    "Emergency exit sign",
+    "Faucet",
+    "Filing cabinet",
+    "Glass external",
+    "Glass internal",
+    "Heater",
+    "Mirror",
+    "Sink",
+    "Toilet",
+    "Vent",    
+  ]
+  export_classes: [
+    "Boiler",
+    "Carpet",
+    "Ceiling light",
+    "Conference chair",
+    "Desk",
+    "Desk chair",
+    "Door",
+    "Elevator",
+    "Emergency exit sign",
+    "Faucet",
+    "Filing cabinet",
+    "Glass external",
+    "Glass internal",
+    "Heater",
+    "Mirror",
+    "Sink",
+    "Toilet",
+    "Vent",
   ]
 
 oi_v7_custom_2:
@@ -332,62 +432,76 @@ oi_v7_custom_negative:
   samples_per_class: 500
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "detections"
+  type: "detections"
   download_splits: ["train", "validation", "test"]
   download_classes:
-    - "Couch"          # Desk chair
-    - "Table"          # Desk
-    - "Couch"          # Conference chair
-    - "Cabinetry"      # Filing cabinet
-    - "Fireplace"      # Heater
-    - "Refrigerator"   # Boiler
-    - "Ceiling fan"    # Air flow grill
-    - "Escalator"      # Elevator
-    - "Shelf"          # Ductwork
-    - "Light bulb"     # Ceiling light
-    - "Lamp"           # Wall lights
-    - "Clock"          # Emergency exit sign
-    - "Picture frame"  # Mirror
-    - "Bidet"          # Toilet
-    - "Bathtub"        # Sink
-    - "Shower"         # Faucet
-    - "Countertop"     # Raised access flooring
-    - "Picture frame"  # Door
-    - "Whiteboard"     # Window frame
-    - "Curtain"        # Glas internal
-    - "Window blind"   # Glas external
+    - "Couch"
+    - "Table"
+    - "Cabinetry"      
+    - "Fireplace"      
+    - "Refrigerator"   
+    - "Ceiling fan"    
+    - "Escalator"      
+    - "Shelf"          
+    - "Light bulb"     
+    - "Lamp"           
+    - "Clock"          
+    - "Picture frame"  
+    - "Bidet"          
+    - "Bathtub"        
+    - "Shower"         
+    - "Countertop"     
+    - "Picture frame"  
+    - "Whiteboard"     
+    - "Curtain"        
+    - "Window blind"   
   export_splits: ["train"]
-  export_classes:
+  export_classes: 
     # export classes here are just used for sam3 segmentation
-    - "Desk chair"
+    - "Boiler"
+    - "Carpet"
+    - "Ceiling light"
     - "Conference chair"
     - "Desk"
-    - "Filing cabinet"
-    - "Heater"
-    - "Boiler"
-    - "Air flow grill"
-    - "Elevator"
-    - "Ductwork"
-    - "Ceiling light"
-    - "Wall lights"
-    - "Emergency exit sign"
-    - "Mirror"
-    - "Toilet"
-    - "Sink"
-    - "Faucet"
-    - "Raised access flooring"
+    - "Desk chair"
     - "Door"
-    - "Window frame"
-    - "Glas internal"
-    - "Glas external"
+    - "Elevator"
+    - "Emergency exit sign"
+    - "Faucet"
+    - "Filing cabinet"
+    - "Glass external"
+    - "Glass internal"
+    - "Heater"
+    - "Mirror"
+    - "Sink"
+    - "Toilet"
+    - "Vent"    
   hard_negatives:
+    Boiler:               Refrigerator
+    Carpet:               Table
+    Ceiling light:        Ceiling fan
+    Conference chair:     Couch
+    Desk:                 Table
+    Desk chair:           Couch
+    Door:                 Picture frame
+    Elevator:             Door
+    Emergency exit sign:  Whiteboard
+    Faucet:               Shower
+    Filing cabinet:       Cabinetry
+    Glass external:        Picture frame
+    Radiator:             Filing cabinet
+    Mirror:               Picture frame
+    Sink:                 Shower
+    Toilet:               Shower
+    Vent:                 Ceiling fan
+    Window:               Picture frame
 
 
 oi_v7_complete:
   #samples_per_split: null  # or remove line entirely 
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "detections"
+  type: "detections"
   download_splits: ["train", "validation", "test"]
   #download_classes: null   # Download all classes instead of empty list
   export_splits: ["train", "val", "test"]   
@@ -430,7 +544,7 @@ oi_v7_custom_clean_10:
   samples_per_split: 10
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "detections"
+  type: "detections"
   download_splits: ["train", "validation", "test"]
   download_classes: []   
   export_splits: ["train", "val", "test"]   
@@ -441,74 +555,18 @@ oi_v7_custom_null:
   samples_per_split: 100
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "detections"
+  type: "detections"
   download_splits: ["train", "validation", "test"]
   download_classes:    
   export_splits: ["train", "val", "test"]   
   export_classes: 
-
-oi_v7_custom_13:
-  multipart: true
-  oi_v7_custom_8:
-    samples_per_split: 100
-    host: fiftyone_zoo
-    origin: open-images-v7
-    download_type: "detections"    
-    download_splits: ["train", "validation", "test"]  
-    download_classes:            
-      - "Door"
-      - "Window"
-      - "Bathtub"
-      - "Sink"
-      - "Lamp"
-      - "Mechanical fan"
-      - "Chair"
-      - "Desk"
-  oi_v7_custom_5:
-    samples_per_split: 100
-    host: fiftyone_zoo
-    origin: open-images-v7
-    download_type: "segmentations"    
-    download_splits: ["train", "validation", "test"]  
-    download_classes:            
-      - "Filing Cabinet"
-      - "Heater"
-      - "Power plugs and sockets"
-      - "Light switch"
-      - "Toilet"
-
-      
-oi_v7_custom_3:
-  multipart: true
-  mock_data_1:
-    samples_per_split: 10
-    host: fiftyone_zoo
-    origin: open-images-v7
-    download_type: &type1 "detections"    
-    download_splits: ["train", "validation", "test"]  
-    download_classes: &classes1            
-      - "Door"
-    export_splits: ["train", "val", "test"]                 
-    export_classes: *classes1              
-    export_type: "segmentations"
-  mock_data_2:
-    samples_per_split: 10
-    host: fiftyone_zoo
-    origin: open-images-v7
-    download_type: &type2 "segmentations"
-    download_splits: ["train", "validation", "test"]
-    download_classes: &classes2
-      - "Door handle"
-    export_splits: ["train", "val", "test"]   
-    export_classes: *classes2
-    export_type: "segmentations"
 
 
 oi_v7_custom_54:
   samples_per_split: 100
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "detections"
+  type: "detections"
   download_splits: ["train", "validation", "test"]
   download_classes:
     - "Cabinetry"
@@ -569,11 +627,25 @@ oi_v7_custom_54:
   export_classes: 
   export_type: 
 
+window:
+  host: roboflow
+  type: "detections"
+  format: yolov12
+  api_key: "AgfWlgODe2lXi5Nh5VTu"
+  project: "fenstererganzung"
+  workspace: "tafeln"
+  version: 2
+  download_splits: ["train", "valid", "test"]
+  export_splits: ["train", "valid", "test"]     
+  export_classes: [
+    "Window"
+  ]             
+
 oi_v7_custom_1:
   samples_per_split: 30
   host: fiftyone_zoo
   origin: open-images-v7
-  download_type: "segmentations"    
+  type: "segmentations"    
   download_splits: ["train", "validation", "test"]  
   download_classes:            
 

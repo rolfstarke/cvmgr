@@ -1,0 +1,91 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            2xu8sdn4k6rjxrk47dp1ty5u9kjbgjib:
+                args:
+                    - --optimize
+                    - --dataset
+                    - radiator
+                    - --gpu
+                    - "2"
+                    - --iterations
+                    - "200"
+                codePath: main.py
+                codePathLocal: main.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "207818493952"
+                        used: "107190255616"
+                email: starke@b-tu.de
+                executable: /home/rolf/anaconda3/envs/cvmgr/bin/python
+                git:
+                    commit: c4d7591428478acc7c07d5f18c066eb9e069e767
+                    remote: https://github.com/rolfstarke/cvmgr.git
+                gpu: NVIDIA RTX A4000
+                gpu_count: 5
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-a953b6be-4f1c-6e17-37f2-314c5185e2df
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-9323c0ec-5d7e-2d7d-352d-772492fa96e9
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-2aae169b-ecb8-ac84-90ad-19ccffecae32
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-4f5c9e64-ae39-b646-328c-29f65686286f
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "17171480576"
+                      name: NVIDIA RTX A4000
+                      uuid: GPU-7de1de81-6635-42a0-ab53-92f20494e79b
+                host: lnx-1.bauwesen.local
+                memory:
+                    total: "475512504320"
+                os: Linux-6.8.0-111-generic-x86_64-with-glibc2.39
+                program: /home/rolf/GIT/cvmgr/main.py
+                python: CPython 3.10.20
+                root: /home/rolf/GIT/cvmgr
+                startedAt: "2026-05-31T17:50:17.740464Z"
+                writerId: 2xu8sdn4k6rjxrk47dp1ty5u9kjbgjib
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 5
+                - 30
+                - 35
+                - 41
+                - 49
+                - 53
+            "2":
+                - 1
+                - 5
+                - 30
+                - 35
+                - 41
+                - 49
+                - 53
+            "3":
+                - 2
+                - 13
+                - 15
+            "4": 3.10.20
+            "5": 0.26.1
+            "12": 0.26.1
+            "13": linux-x86_64

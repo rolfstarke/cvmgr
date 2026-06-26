@@ -4,7 +4,7 @@ from fiftyone import ViewField as F
 from .logging_check import util_log
 
 
-TEST_DATASET = "mark_lane_leuthener_custom_21_hd"
+TEST_DATASET = "mark_lane_leuthener_21_ORIGINAL"
 
 
 @util_log("add_testsplit", success_text=lambda result, args, kwargs: f"added_samples={result}")
@@ -16,6 +16,7 @@ def add_testsplit(dataset_name: str) -> int:
     view = test_dataset.filter_labels("ground_truth", F("label").is_in(classes))
 
     for sample in view:
+        sample.tags = ["test"]
         dataset.add_sample(sample)
 
     dataset.save()

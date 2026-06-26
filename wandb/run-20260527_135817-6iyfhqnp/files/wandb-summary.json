@@ -1,0 +1,1 @@
+{"_timestamp":1.7798830999110818e+09,"_wandb":{"runtime":0},"_runtime":0,"_step":0,"mAP50-95_M_":0.31297,"test/mAP50-95_M_":0.15822159237601957,"runtime":"855m 14s","iterations":100}

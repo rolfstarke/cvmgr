@@ -6,7 +6,7 @@ from .logging_check import util_log
 
 
 @util_log("fiftyone_download", success_check=lambda result, args, kwargs: result is not False, success_text=lambda result, args, kwargs: "dataset_exists OR filtered")
-def fiftyone_download(dataset_name: str, config: dict):
+def fiftyone_download(dataset_name: str, config: dict, gpu: str = "0"):
 
     samples_per_class = config.get("samples_per_class")
     download_classes = config.get("download_classes")
@@ -23,7 +23,7 @@ def fiftyone_download(dataset_name: str, config: dict):
             cls_dataset = fiftyone.zoo.load_zoo_dataset(
                 name_or_url=config.get("origin"),
                 splits=config.get("download_splits"),
-                label_types=config.get("download_type"),
+                label_types=config.get("type"),
                 classes=[cls],
                 max_samples=samples_per_class,
                 dataset_name=cls_tmp_name,
@@ -35,7 +35,7 @@ def fiftyone_download(dataset_name: str, config: dict):
         dataset = fiftyone.zoo.load_zoo_dataset(
             name_or_url=config.get("origin"),
             splits=config.get("download_splits"),
-            label_types=config.get("download_type"),
+            label_types=config.get("type"),
             classes=download_classes,
             max_samples=config.get("samples_per_split"),
         )
@@ -49,10 +49,16 @@ def fiftyone_download(dataset_name: str, config: dict):
     dataset = dataset.clone(dataset_name)
     dataset.persistent = True
 
+    if config.get("label_map"):
+        dataset.map_labels("ground_truth", config["label_map"]).save()
+
     if samples_per_class and fiftyone.dataset_exists(tmp_name):
         fiftyone.delete_dataset(tmp_name)
 
-    # dataset = sam3_visual_segmentation(dataset=dataset)
+    if config.get("type") == "detections":
+        dataset = sam3_visual_segmentation(dataset=dataset, recalculate=False, gpu=gpu)
+        if dataset is False:
+            return False
 
     if not fiftyone.dataset_exists(dataset_name):
         return False

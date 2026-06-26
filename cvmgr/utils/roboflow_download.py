@@ -9,7 +9,7 @@ from .fiftyone_import import fiftyone_import
 from .logging_check import util_log
 
 @util_log("roboflow_download", success_text=lambda result, args, kwargs: "yaml_rewritten AND imported")
-def roboflow_download(dataset_name: str, config: dict):
+def roboflow_download(dataset_name: str, config: dict, gpu: str = "0"):
 
 
 # formats include: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytorch, yolov4scaled, yolov5-obb, yolov5pytorch, yolov7pytorch, yolov8, yolov8-obb, yolov9, yolov11, yolov12, mt-yolov6, retinanet, benchmarker, paligemma, paligemma-txt, florence2-od, openai
@@ -70,7 +70,7 @@ def roboflow_download(dataset_name: str, config: dict):
 
     shutil.rmtree(pathlib.Path(dataset.location))
 
-    return bool(fiftyone_import(dataset_name, config))
+    return bool(fiftyone_import(dataset_name, config, gpu=gpu))
 
 
 

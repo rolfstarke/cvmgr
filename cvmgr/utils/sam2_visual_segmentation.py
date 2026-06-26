@@ -1,18 +1,14 @@
 import os
-import pathlib
 
 import fiftyone
-import yaml
 from .logging_check import util_log
 
 @util_log("sam2_visual_segmentation", success_check=lambda result, args, kwargs: result is not False, success_text=lambda result, args, kwargs: "missing_masks == 0 OR no_work")
-def sam2_visual_segmentation(dataset: fiftyone.core.dataset.Dataset = None, recalculate: bool = False):
+def sam2_visual_segmentation(dataset: fiftyone.core.dataset.Dataset = None, recalculate: bool = False, gpu: str = "0"):
     if dataset is None:
         return False
 
-    with (pathlib.Path.cwd() / "cvmgr" / "configs" / "resources.yaml").open("r") as file:
-        resources = yaml.safe_load(file)
-    os.environ["CUDA_VISIBLE_DEVICES"] = resources["sam"]["cuda_visible_devices"]
+    os.environ["CUDA_VISIBLE_DEVICES"] = gpu
 
     samples_without_masks = dataset.filter_labels("ground_truth", fiftyone.ViewField("mask").is_null())
     if len(samples_without_masks) == 0:

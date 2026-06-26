@@ -1,0 +1,26 @@
+{
+  "os":  "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+  "python":  "CPython 3.10.20",
+  "startedAt":  "2026-06-17T15:52:48.123584Z",
+  "args":  [
+    "--optimize",
+    "--dataset",
+    "deskchair",
+    "--gpu",
+    "4",
+    "--iterations",
+    "120"
+  ],
+  "program":  "/home/rolf/GIT/cvmgr/main.py",
+  "codePath":  "main.py",
+  "codePathLocal":  "main.py",
+  "git":  {
+    "remote":  "https://github.com/rolfstarke/cvmgr.git",
+    "commit":  "c4d7591428478acc7c07d5f18c066eb9e069e767"
+  },
+  "email":  "starke@b-tu.de",
+  "root":  "/home/rolf/GIT/cvmgr",
+  "host":  "lnx-1.bauwesen.local",
+  "executable":  "/home/rolf/anaconda3/envs/cvmgr/bin/python",
+  "writerId":  "kn85fosulmdk4l9g5xs8fh2p7iprw7oc"
+}

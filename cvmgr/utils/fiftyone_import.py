@@ -37,7 +37,7 @@ def _polylines_to_detections(dataset, src_field: str, dst_field: str):
 
 
 @util_log("fiftyone_import", success_text=lambda result, args, kwargs: "dataset_exists OR replaced")
-def fiftyone_import(dataset_name: str, config: dict, replace: bool = False):
+def fiftyone_import(dataset_name: str, config: dict, replace: bool = False, gpu: str = "0"):
 
     if fiftyone.dataset_exists(dataset_name) and not replace:
         return True
@@ -66,7 +66,7 @@ def fiftyone_import(dataset_name: str, config: dict, replace: bool = False):
         view = dataset.take(config.get("samples_per_split")*len(config.get("download_splits", [])))
         dataset.delete_samples(dataset.exclude(view))
     if config.get("type") == "detections":
-        dataset = sam3_visual_segmentation(dataset, recalculate=False)
+        dataset = sam3_visual_segmentation(dataset, recalculate=False, gpu=gpu)
         if dataset is False:
             return False
     elif config.get("type") == "polylines":

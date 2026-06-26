@@ -1,0 +1,62 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            3oq1jj4wuuavz36ike7w3plv95w6jvjh:
+                args:
+                    - --optimize
+                    - --dataset
+                    - airvent
+                    - --gpu
+                    - "3"
+                    - --iterations
+                    - "200"
+                codePath: main.py
+                codePathLocal: main.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                disk:
+                    /:
+                        total: "207818493952"
+                        used: "135365193728"
+                email: starke@b-tu.de
+                executable: /home/rolf/anaconda3/envs/cvmgr/bin/python
+                git:
+                    commit: c4d7591428478acc7c07d5f18c066eb9e069e767
+                    remote: https://github.com/rolfstarke/cvmgr.git
+                host: lnx-1.bauwesen.local
+                memory:
+                    total: "475512504320"
+                os: Linux-6.8.0-111-generic-x86_64-with-glibc2.39
+                program: /home/rolf/GIT/cvmgr/main.py
+                python: CPython 3.10.20
+                root: /home/rolf/GIT/cvmgr
+                startedAt: "2026-06-08T00:12:48.914632Z"
+                writerId: 3oq1jj4wuuavz36ike7w3plv95w6jvjh
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 5
+                - 30
+                - 35
+                - 41
+                - 49
+                - 53
+            "2":
+                - 1
+                - 5
+                - 30
+                - 35
+                - 41
+                - 49
+                - 53
+            "3":
+                - 2
+                - 13
+                - 15
+            "4": 3.10.20
+            "5": 0.26.1
+            "12": 0.26.1
+            "13": linux-x86_64

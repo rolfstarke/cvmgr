@@ -21,6 +21,7 @@ dependencies:
       - "ray[tune]"
       - optuna
       - hyperopt
+      - sahi
 
 variables:
   LD_LIBRARY_PATH: /home/rolf/anaconda3/envs/cvmgr/lib/python3.10/site-packages/nvidia/cu13/lib

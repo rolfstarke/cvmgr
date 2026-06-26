@@ -1,86 +1,83 @@
-
 # those must match the name in datasets.yaml
+
 datasets_to_download:
-# - oi_v7_custom_54
-#  - mock_data_1
-#  - mock_data_2
-#  - oi_v7_custom_13
-
-
-#  - oi_v7_custom_null
-
-#  - exitlight
-#  - ceilinglight
-#  - windowframe
-#  - airvent
-#  - elevator
-#  - duct
-#  - boiler
-# - powersocket_sam3
-#  - mark_lane_leuthener_custom_21_lowres
-#  - heater
+# - boiler
+# - carpet
+# - ceilinglight
+# - desk
+# - deskchair
+# - door
+# - elevator
+# - exitlight
+# - faucet
+# - filing_cabinet
+# - glass
+# - radiator
+# - mirror
+# - sink
 # - toilet
-#  - oi_v7_custom_negative
-  - mark_lane_leuthener_custom_21_fullhd  
+# - airvent
+
+# - windowframe
+# - oi_v7_custom_54
+# - oi_v7_custom_13
+# - oi_v7_custom_null
+# - oi_v7_custom_negative
+# - powersocket_sam3
+# - mock_data_1
+# - mock_data_2
+# - mark_lane_leuthener_21_FULLHD
+# - mark_lane_leuthener_21_HD
+# - mark_lane_leuthener_21_ORIGINAL
+#  - window
+
 
 datasets_to_train:
-#  - exitlight
-#  - oi_v7_custom_clean
-# - powersocket
+# - boiler
+# - carpet
+# - ceilinglight
+# - desk
+ - deskchair
+ - door
+ - elevator
+ - exitlight
+ - faucet
+ - filing_cabinet
+# - glass
+ - radiator
+ - mirror
+ - sink
+# - toilet
+# - airvent
 
-datasets_to_merge:
-  - mock_data_1
-  - mock_data_2
-# - mock_data_3
+text_prompt_datasets:
+#  - oi_v7_custom_negative
+  - mark_lane_leuthener_21_ORIGINAL
+# - powersocket_test
 
-datasets_to_segment:
-#  - mark_lane_leuthener_custom_21
-#  - mark_lane_leuthener_custom_21_fullhd
-#  - powersocket_test
-  - oi_v7_custom_negative
-
+visual_prompt_datasets:
+  - mark_lane_leuthener_21_ORIGINAL
 
 models_to_optimize:
- # - exitlight
- # - ceilinglight
- # - windowframe
- # - airvent
- # - elevator
- # - duct
-#  - boiler
-#  - heater
-#  - toilet
-#  - exitlight
-#  - ceilinglight
-#  -  mark_lane_leuthener_custom_21_fullhd  
+#  - airvent
+# - boiler
+# - ceilinglight
+# - deskchair
+# - door
+#  - elevator
+ - exitlight
 
+
+# - windowframe
+# - airvent
+# - duct
+# - heater
+# - toilet
 
 models_to_evaluate:
   - train-29
 
-blacklog:
-  - training_config_x
-  - training_config_x_1280
-  - optimized_training_config
-  - training_config_autoaugment
-  - training_config_augmix
-  - training_config_randaugment
+datasets_to_correct:
+  - mark_lane_leuthener_21_ORIGINAL
 
-
-  - training_config_x_1280
-  - training_config_x_1280_scale
-  - training_config_x_1280_hsv_h
-  - training_config_x_1280_hsv_s
-  - training_config_x_1280_hsv_v
-  - training_config_x_1280_degrees
-  - training_config_x_1280_translate
-  - training_config_x_1280_shear
-  - training_config_x_1280_perspective
-  - training_config_x_1280_fliplr
-  - training_config_x_1280_mosaic
-  - training_config_x_1280_randaugment
-  - training_config_x_1280_autoaugment
-  - training_config_x_1280_augmix
-
-datasets_to_upload:
-  - mark_lane_leuthener_custom_21_fullhd
+datasets_to_pull:

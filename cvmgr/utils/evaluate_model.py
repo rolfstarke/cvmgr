@@ -1,30 +1,34 @@
+import pathlib
 import fiftyone
 from ultralytics import YOLO
 from .logging_check import util_log
 
-@util_log("evaluate_model", success_text=lambda result, args, kwargs: "prediction_field_present AND evaluation_saved")
-def evaluate_model(
-    prediction_model: str,
-    prediction_labelfield: str,
-    conf: float = 0.3,
-    gt_field: str = "ground_truth",
-):
-    dataset = fiftyone.load_dataset("mark_lane_leuthener_custom_21_lowres")
+# Why did the model fail peer review? Because it kept predicting "no issues" on its own weights.
 
-    # Always (re-)run predictions and overwrite existing field
-    if prediction_labelfield in dataset.get_field_schema():
+@util_log(
+    "evaluate_model",
+    success_text=lambda result, args, kwargs: f"ran {result} models → {kwargs.get('prediction_labelfield', 'yolo_predictions')} on {kwargs.get('dataset_name', 'mark_lane_leuthener_21_ORIGINAL')}",
+)
+def evaluate_model(
+    dataset_name: str = "mark_lane_leuthener_21_ORIGINAL",
+    prediction_labelfield: str = "yolo_predictions",
+    replace: bool = False,
+    model_path: str | None = None,
+):
+    dataset = fiftyone.load_dataset(dataset_name)
+
+    if replace and prediction_labelfield in dataset.get_field_schema():
         dataset.delete_sample_field(prediction_labelfield)
 
-    model = YOLO(prediction_model)
-    dataset.apply_model(model, label_field=prediction_labelfield, confidence_thresh=conf)
+    if model_path is not None:
+        model_paths = [pathlib.Path(model_path)]
+    else:
+        models_dir = pathlib.Path(__file__).parents[2] / "models"
+        model_paths = sorted(models_dir.glob("*.pt"))
 
-    dataset.evaluate_detections(
-        prediction_labelfield,
-        gt_field=gt_field,
-        eval_key=f"{prediction_labelfield}_eval",
-        compute_mAP=True,
-    )
+    for mp in model_paths:
+        model = YOLO(str(mp))
+        dataset.apply_model(model, label_field=prediction_labelfield)
 
     dataset.save()
-    return True
-
+    return len(model_paths)
