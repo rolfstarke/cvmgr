@@ -23,6 +23,6 @@ from .utils.cvat_correct_labels import cvat_annotate, cvat_pull_corrections
 from .utils.apple_dms_download import apple_dms_download
 from .utils.lvis_download import lvis_download, lvis_filter_multi_mask
 from .utils.sam3_visualprompt import sam3_visualprompt
-from .utils.analyses import analyses
-        
+from .utils.analyse import analyse
+from .utils.analyse2 import analyse2        
 # maybe fiftyone_download doesnt need to be imported here bc its imported in fetch_dataset.py

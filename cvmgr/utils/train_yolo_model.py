@@ -26,16 +26,22 @@ def _metric_from_results(results_obj, key: str) -> float:
 
 
 @util_log("train_yolo_model", success_text=lambda result, args, kwargs: "trained")
-def train_yolo_model(dataset_name: str, gpu: str = "0"):
+def train_yolo_model(dataset_name: str, gpu: str = "0", source: str = "ray"):
     device = [int(g) for g in gpu.split(",")] if "," in gpu else int(gpu)
 
     wandb.login(key=_secrets["wandb"]["api_key"])
     settings.update({"wandb": True})
 
-    configs_dir = pathlib.Path.cwd() / "cvmgr" / "configs" / "training"
+    configs_dir = pathlib.Path.cwd() / "cvmgr" / "configs" / "training" / source
+    def _version(p):
+        try:
+            return float(p.stem.rsplit("_", 1)[-1].replace("-", "."))
+        except ValueError:
+            return -1
+
     existing = sorted(
         configs_dir.glob(f"{dataset_name}_*.yaml"),
-        key=lambda p: float(p.stem.rsplit("_", 1)[-1].replace("-", ".")),
+        key=_version,
     )
     resolved_cfg = existing[-1] if existing else configs_dir / "default.yaml"
 
@@ -92,7 +98,7 @@ def train_yolo_model(dataset_name: str, gpu: str = "0"):
                     pass
                 break
 
-    models_dir = pathlib.Path.cwd() / "models"
+    models_dir = pathlib.Path.cwd() / "models" / source
     archive_dir = models_dir / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
 

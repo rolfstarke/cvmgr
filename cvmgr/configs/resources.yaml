@@ -13,8 +13,11 @@ train:
   batch: -1
   cache: "ram"
   epochs: 3000
-  patience: 200
+  patience: 100
   model: yolo26x-seg.pt
 
 sam:
   sam3_query_batch_size: 1
+  sam3_empty_cache_every: 1
+  sam3_confidence_threshold: 0.1
+  sam3_visual_conf_threshold: 0.1

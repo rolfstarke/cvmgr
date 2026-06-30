@@ -79,11 +79,17 @@ def optimize_hyperp_ray(dataset_name: str, gpu: str = "0", iterations: int = Non
     with wandb.init(project=project, name=f"tune_{dataset_name}", job_type="hyperparameter-tuning", tags=[dataset_name]) as run:
         run.log({"mAP50-95_M_": new_mAP, "test/mAP50-95_M_": test_mAP, "runtime": f"{int(runtime // 60)}m {int(runtime % 60)}s", "iterations": n_iterations})
 
-    configs_dir = pathlib.Path("cvmgr") / "configs" / "training"
+    configs_dir = pathlib.Path("cvmgr") / "configs" / "training" / "ray"
     archive_dir = configs_dir / "archive"
     archive_dir.mkdir(exist_ok=True)
 
-    existing = sorted(configs_dir.glob(f"{dataset_name}_*.yaml"), key=lambda p: float(p.stem.rsplit("_", 1)[-1].replace("-", ".")))
+    def _version(p):
+        try:
+            return float(p.stem.rsplit("_", 1)[-1].replace("-", "."))
+        except ValueError:
+            return -1
+
+    existing = sorted(configs_dir.glob(f"{dataset_name}_*.yaml"), key=_version)
     existing_best = existing[-1] if existing else None
     existing_mAP = float(existing_best.stem.rsplit("_", 1)[-1].replace("-", ".")) if existing_best else 0.0
 

@@ -137,20 +137,6 @@ filing_cabinet:
   export_splits: ["train", "val", "test"]
   export_classes: ["Filing cabinet"]
 
-heater:
-  samples_per_split: 1000
-  host: fiftyone_zoo
-  origin: open-images-v7
-  type: "segmentations"
-  download_splits: ["train", "validation", "test"]
-  download_classes: [
-    "Heater"
-  ]
-  export_splits: ["train", "val", "test"]   
-  export_classes: [
-    "Heater"
-  ]
-
 glass:
   host: apple_dms
   dms_class_id: 20
@@ -283,11 +269,11 @@ mark_lane_leuthener_21_ORIGINAL:
     "Filing cabinet",
     "Glass external",
     "Glass internal",
-    "Heater",
+    "Radiator",
     "Mirror",
     "Sink",
     "Toilet",
-    "Vent",    
+    "Vent",
   ]
   export_classes: [
     "Boiler",
@@ -303,7 +289,7 @@ mark_lane_leuthener_21_ORIGINAL:
     "Filing cabinet",
     "Glass external",
     "Glass internal",
-    "Heater",
+    "Radiator",
     "Mirror",
     "Sink",
     "Toilet",

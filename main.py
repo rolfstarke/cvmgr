@@ -42,6 +42,8 @@ from cvmgr import test, test2, test3
 #from cvmgr import concept_segmentation
 from cvmgr import evaluate_model
 from cvmgr import evaluate_model_sahi
+from cvmgr import analyse
+from cvmgr import analyse2
 #from cvmgr import optimize_hyperp
 from cvmgr import optimize_hyperp_ray
 from cvmgr import fiftyone_import
@@ -65,18 +67,20 @@ with datasets_path.open('r') as file:
 parser = argparse.ArgumentParser()
 parser.add_argument("--download", help="download datasets", action='store_true')
 parser.add_argument("--merge", help="use the pipeline.yaml to merge datasets", action='store_true')
-parser.add_argument("--train", help="train models", action='store_true')
+parser.add_argument("--train", nargs="?", const="ray", choices=["ray", "claude"], default=None, help="train models (ray|claude)")
 parser.add_argument("--textprompt", help="run SAM3 concept segmentation", action='store_true')
 parser.add_argument("--test", help="use the test function", action='store_true')
-parser.add_argument("--evaluate", help="use the pipeline.yaml to evaluate models", action='store_true')
-parser.add_argument("--sahi", help="run SAHI sliced predictions", action='store_true')
+parser.add_argument("--evaluate", nargs="?", const="ray", choices=["ray", "claude"], default=None, help="evaluate models (ray|claude)")
+parser.add_argument("--sahi", nargs="?", const="ray", choices=["ray", "claude"], default=None, help="run SAHI sliced predictions (ray|claude)")
 parser.add_argument("--optimize", help="optimize hyperparameters", action='store_true')
 parser.add_argument("--gpu", nargs='+', metavar='GPU', default=["0"], help="GPU device(s) (e.g. 0 or 0 1)")
 parser.add_argument("--iterations", help="override iterations for --optimize", type=int, default=None)
 parser.add_argument("--dataset", nargs='+', metavar='DATASET', default=None, help="override pipeline.yaml dataset list for the current command")
+parser.add_argument("--analyse", nargs="?", const=None, type=int, default=False, help="analyse prediction fields vs ground truth; optionally limit to N samples")
+parser.add_argument("--analyse2", metavar="DATASET", default=None, help="parallel analyse: clone DATASET and evaluate all prediction fields in parallel")
 parser.add_argument("--correct", help="send datasets_to_correct to CVAT for label correction", action='store_true')
 parser.add_argument("--pull", help="pull corrected labels back from CVAT", action='store_true')
-parser.add_argument("--visualprompt", help="manually draw one visual prompt box in FiftyOne and predict for that sample", action='store_true')
+parser.add_argument("--visualprompt", help="manually draw one visual prompt box in FiftyOne and predict the rest of the dataset", action='store_true')
 args = parser.parse_args()
 args.gpu = ",".join(args.gpu)
 
@@ -101,16 +105,16 @@ try:
             #sam3_visual_segmentation(dataset=tmp_dataset, recalculate=False)
             #export_yolo_dataset(dataset_name=dataset, config=data_cfg, replace=True)
 
-    if args.train:
+    if args.train is not None:
         for dataset in (args.dataset or pipeline_yaml.get("datasets_to_train", [])):
             fix_mixed_labels(dataset_name=dataset)
-            train_yolo_model(dataset_name=dataset, gpu=args.gpu)
+            train_yolo_model(dataset_name=dataset, gpu=args.gpu, source=args.train)
 
-    if args.evaluate:
-        evaluate_model(replace=True)
+    if args.evaluate is not None:
+        evaluate_model(replace=True, source=args.evaluate)
 
-    if args.sahi:
-        evaluate_model_sahi(replace=True)
+    if args.sahi is not None:
+        evaluate_model_sahi(replace=True, source=args.sahi)
 
     if args.textprompt:
         sam3_concept_segmentation(
@@ -134,6 +138,13 @@ try:
             fiftyone_reimport_yolo_dataset(dataset_name=dataset, config=dataset_cfgs_yaml.get(dataset))
             optimize_hyperp_ray(dataset_name=dataset, gpu=args.gpu, iterations=args.iterations)
 
+
+    if args.analyse is not False:
+        analyse(limit=args.analyse)
+
+    if args.analyse2 is not None:
+        for source in pipeline_yaml.get("analyse_datasets", []):
+            analyse2(source_name=source, analyze_name=args.analyse2, workers=4)
 
     if args.correct:
         for dataset in pipeline_yaml.get("datasets_to_correct", []):

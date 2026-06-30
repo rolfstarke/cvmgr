@@ -53,10 +53,15 @@ datasets_to_train:
 text_prompt_datasets:
 #  - oi_v7_custom_negative
   - mark_lane_leuthener_21_ORIGINAL
+
 # - powersocket_test
 
 visual_prompt_datasets:
   - mark_lane_leuthener_21_ORIGINAL
+
+analyse_datasets:
+  - mark_lane_leuthener_21_ORIGINAL
+
 
 models_to_optimize:
 #  - airvent

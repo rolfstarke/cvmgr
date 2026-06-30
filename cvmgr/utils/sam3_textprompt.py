@@ -31,6 +31,7 @@ def sam3_concept_segmentation(datasets_to_segment: list, dataset_cfgs: dict, gpu
                 "--config", json.dumps(merged_config),
                 "--replace",
                 "--label_field", "text_prompt_predictions",
+                "--gpu", gpu,
             ],
             cwd=_sam3_cwd,
             env=env,
