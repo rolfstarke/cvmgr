@@ -1,0 +1,19 @@
+dataset
+Boiler	https://universe.roboflow.com/project-1iwh1/boiler/browse?queryText=&pageSize=50&startingIndex=50&browseQuery=true
+Carpet	https://github.com/apple/ml-dms-dataset/blob/main/check_images.py
+Ceiling light	https://app.roboflow.com/tree-detection-zocbs/light_detect_3/1
+Conference chair	https://app.roboflow.com/btu-5oo8g/meeting-room-spb9s-8eeo0/1/export
+Desk	https://storage.googleapis.com/openimages/web/index.html
+Desk chair	https://app.roboflow.com/btu-5oo8g/meeting-room-spb9s-8eeo0/1/export
+Door	https://storage.googleapis.com/openimages/web/index.html
+Elevator	https://universe.roboflow.com/elevator-0iq4p/elevator-status/browse?queryText=&pageSize=50&startingIndex=50&browseQuery=true
+Emergency exit sign	https://universe.roboflow.com/amadeo-x5pc0/exit-lights/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
+Faucet	https://storage.googleapis.com/openimages/web/index.html
+Filing cabinet	https://storage.googleapis.com/openimages/web/index.html
+Glas external	https://github.com/apple/ml-dms-dataset/blob/main/check_images.py
+Glas internal	https://github.com/apple/ml-dms-dataset/blob/main/check_images.py
+Radiator	https://www.lvisdataset.org/
+Mirror	https://www.lvisdataset.org/
+Sink	https://www.lvisdataset.org/
+Toilet	https://storage.googleapis.com/openimages/web/index.html
+Vent	https://www.lvisdataset.org/
